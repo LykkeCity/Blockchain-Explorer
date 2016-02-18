@@ -1,0 +1,141 @@
+﻿@{
+    @model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
+}
+
+
+<div class="container">
+    <header class="top-nav-links clearfix">
+        <h1>Transaction</h1>
+    </header>
+
+    <div class="page-content">
+        <div class="transaction-explorer">
+            <div class="row">
+                <div class="col-md-7">
+                    <table class="table table-rounded ">
+                        <tbody>
+                            <tr>
+                                <td class="no-wrap">Hash</td>
+                                <td class="expand-column">@Model.Transaction.Txid</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Date</td>
+                                <td class="expand-column">@($"{Model.Transaction.Time:F}")</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Fee paid</td>
+                                <td class="expand-column">@($"{Convert.ToDecimal(Model.Fee):F8}") BTC</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Assets transacted</td>
+                                <td class="expand-column">None</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-5">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Transaction confirmed</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-4 confirmation-key">Confirmations</div>
+                                <div class="col-xs-8 confirmation-value">@Model.Transaction.Confirmations confirmations</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 confirmation-key">Time</div>
+                                <div class="col-xs-8 confirmation-value">@($"{Model.Transaction.Time:F}")</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 confirmation-key">Block</div>
+                                <div class="col-xs-8 confirmation-value"><a asp-controller="Block" asp-action="Index" asp-route-id="@Model.Transaction.Blockhash">@Model.Transaction.Blockhash</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 confirmation-key">Height</div>
+                                <div class="col-xs-8 confirmation-value">@Model.Transaction.Height</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@foreach (var address in Model.TransactionsAddreses)
+{
+            <div class="panel panel-default transaction-details">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bitcoin</h3>
+                </div>
+
+                <ul class="list-group">
+
+                    <li class="list-group-item clearfix intput-output-group-list-item">
+
+                        <div class="intput-output-group">
+                            <div class="icon">
+                                <span class="currency-icon thumbnail">
+                                    <span class="bg-warning">
+                                        <i class="fa fa-btc"></i>
+                                    </span>
+                                </span>
+                            </div>
+                           
+                                <div class="inputs">
+                                    @foreach (var input in address.Value.Inputs)
+                                    {
+                                        <div class="address-item ">
+                                            <div class="amount">
+                                                - @($"{Convert.ToDecimal(input.Value):G29}")
+                                            </div>
+                                            <div class="address">
+                                                <i class="fa fa-lg fa-arrow-left"></i>
+                                                @input.Addresses
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="outputs">
+                                    <div class="outputs-container">
+                                        <div class="center-chevron">
+                                            <i class="fa fa-chevron-right fa-lg"></i>
+                                        </div>
+                                        @foreach (var output in address.Value.Outputs)
+                                        {
+                                            <div class="address-item ">
+                                                <div class="amount">
+                                                    @($"{Convert.ToDecimal(output.Value):G29}")
+                                                </div>
+                                                <div class="address">
+                                                    @output.Addresses
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="address-item ">
+                                            <div class="amount">
+                                               @($"{Convert.ToDecimal(address.Value.Fee):F8}")
+                                            </div>
+                                            <div class="address">
+                                                Fees
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            
+                        </div>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+}
+        </div>
+
+    </div>
+    <div class="footer-push"></div>
+</div>

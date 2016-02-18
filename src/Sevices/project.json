@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0-*",
+  "description": "Sevices Class Library",
+  "authors": [ "Arkadiy" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnxcore50": {
+      "dependencies": {
+        "AzureRepositories": "1.0.0-*",
+        "Common": "1.0.0-*",
+        "Core": "1.0.0-*"
+      }
+    }
+  },
+  "dependencies": {
+    "Microsoft.CSharp": "4.0.1-beta-23516",
+    "System.Collections": "4.0.11-beta-23516",
+    "System.Linq": "4.0.1-beta-23516",
+    "System.Net.Requests": "4.0.10",
+    "System.Runtime": "4.0.21-beta-23516",
+    "System.Threading": "4.0.11-beta-23516",
+    "Newtonsoft.Json": "8.0.2"
+  }
+}

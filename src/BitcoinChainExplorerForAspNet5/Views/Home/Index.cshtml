@@ -1,0 +1,29 @@
+﻿@model BitcoinChainExplorerForAspNet5.Models.IndexModel
+@{
+    ViewData["Title"] = "Bitcoin Chain Explorer";
+}
+
+<div class="page-content">
+    <div class="home-section home-first">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="home-search">
+                        <h1>
+                            Explore the Blockchain
+                        </h1>
+                        <form asp-controller="Block" asp-action="Index" asp-antiforgery="false"   method="get">
+                            <div class="input-group" role="search">
+                                <input type="text" class="form-control input-lg" name="id" placeholder="Search blocks">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success input-lg" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
+                            </div>
+                        </form>
+                        <p><small>Last block: <a asp-controller="Block" asp-route-id="@Model.LastBlock.Hash">@Model.LastBlock.Height</a></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

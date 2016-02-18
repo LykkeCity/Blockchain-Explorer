@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0-*",
+  "description": "AzureRepositories Class Library",
+  "authors": [ "Arkadiy" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+
+    "dnxcore50": {
+      "dependencies": {
+       
+      }
+    }
+  },
+  "dependencies": {
+    "AzureStorage": "1.0.0-*",
+    "Common": "1.0.0-*",
+    "Core": "1.0.0-*",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
+  }
+}
