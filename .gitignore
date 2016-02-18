@@ -210,3 +210,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/bitcoin-explorer - FTP.pubxml
+src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/bitcoin-explorer - Web Deploy.pubxml
+src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/bitcoin-explorer - Web Deploy-publish.ps1
