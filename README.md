@@ -1,6 +1,6 @@
 # Blockchain-Explorer
 
-The project, which will help us explore blocks and transactions.
+The project, which helps us explore blocks and transactions within blockchain.
 
 Asp.Net 5 MVC 6
 
