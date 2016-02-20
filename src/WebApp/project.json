@@ -48,6 +48,12 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
+    "prepublish": [
+      "dnvm use -Version 1.0.0-rc1-update1 -r coreclr -a x86",
+      "npm install",
+      "bower install",
+      "gulp clean",
+      "gulp min"
+    ]
   }
 }
