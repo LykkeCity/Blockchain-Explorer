@@ -1,0 +1,4 @@
+[submodule "CommonLibrary"]
+	path = CommonLibrary
+	url = https://github.com/LykkeCity/CommonLibrary.git
+	branch = master
