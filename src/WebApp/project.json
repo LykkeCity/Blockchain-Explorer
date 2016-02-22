@@ -21,8 +21,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "WindowsAzure.Storage": "6.2.2-preview",
-    "System.Security.Cryptography.Encryption": "4.0.0-beta-23225",
+    "WindowsAzure.Storage": "6.2.2-*",
+    "System.Security.Cryptography.Encryption": "4.0.0-*",
     "AzureRepositories": "1.0.0-*"
   },
 
