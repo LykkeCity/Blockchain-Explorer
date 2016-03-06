@@ -1,5 +1,6 @@
 ﻿using AzureRepositories.Bitcoin;
 using AzureStorage.Tables;
+using AzureStorage.Tables.Templates.Index;
 using Common.Log;
 using Core.Bitcoin;
 using Microsoft.Extensions.DependencyInjection;

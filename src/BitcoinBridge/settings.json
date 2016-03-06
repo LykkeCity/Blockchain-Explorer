@@ -1,8 +1,8 @@
 ﻿{
   "BitcoinRpcSettings": {
-    "User": "user",
-    "Password": "password",
-    "HostPort": "http://host:port/"
+    "User": "test",
+    "Password": "123456",
+    "HostPort": "http://127.0.0.1:8332/"
   },
   "ConnectionString": "UseDevelopmentStorage=true"
 }

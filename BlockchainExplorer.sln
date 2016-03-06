@@ -28,6 +28,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Common", "CommonLibrary\src
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TcpSockets", "CommonLibrary\src\TcpSockets\TcpSockets.xproj", "{C6FB529F-78FC-4F06-B629-9D82F3C958B0}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ScriptInvoker", "src\ScriptInvoker\ScriptInvoker.xproj", "{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{C6FB529F-78FC-4F06-B629-9D82F3C958B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FB529F-78FC-4F06-B629-9D82F3C958B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FB529F-78FC-4F06-B629-9D82F3C958B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,5 +85,6 @@ Global
 		{972DC039-F0D0-4B2E-A2D8-44E70231A963} = {25802B51-3BFA-45AB-8188-8E663678E4AE}
 		{3491E13C-488E-4906-B35B-8AD8932C3618} = {25802B51-3BFA-45AB-8188-8E663678E4AE}
 		{C6FB529F-78FC-4F06-B629-9D82F3C958B0} = {25802B51-3BFA-45AB-8188-8E663678E4AE}
+		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F} = {66519C09-AAE1-4163-9483-B59910ACFE03}
 	EndGlobalSection
 EndGlobal

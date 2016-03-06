@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Common;
 using Common.Log;
@@ -72,8 +73,8 @@ namespace Sevices.Bitcoin
 
 
             block = await _bitcoinRpc.GetBlockAsync(block.Nextblockhash);
-
-        }
+ 
+            }
 
 
     }
@@ -101,10 +102,11 @@ namespace Sevices.Bitcoin
 
                 await SaveOutputsToDb(transaction);
                 await SaveInputsDb(transaction);
-            }
+                }
             catch (Exception ex)
             {
-                await _log.WriteError("JobsBlockTransfer", "SaveTransactionToDb", itemTx, ex);
+                    Console.WriteLine("Error - SaveTransactionToDb");
+                    await _log.WriteError("JobsBlockTransfer", "SaveTransactionToDb", itemTx, ex);
             }
 
 
@@ -131,10 +133,8 @@ namespace Sevices.Bitcoin
                 };
 
                 await _outputsRepository.SaveAsync(newOutputs);
+                }
             }
-
-
-        }
 
     }
 
@@ -161,11 +161,10 @@ namespace Sevices.Bitcoin
                         };
 
                         await _inputsRepository.SaveAsync(newInputs);
-
-                    }
+                          
+                        }
                 }
-
-            }
+                }
 
         }
     }

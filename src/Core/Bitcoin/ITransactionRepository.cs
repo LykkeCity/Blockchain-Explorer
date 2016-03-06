@@ -25,7 +25,7 @@ namespace Core.Bitcoin
     public interface ITransactionRepository
     {
         Task SaveAsync(Transaction transaction);
-        Task<IEnumerable<ITransaction>> GetAsync(string hashBlock);
+        Task<IEnumerable<ITransaction>> GetAsync(string hashBlock, int page, int count);
         Task<ITransaction> GetTransaction(string tx);
     }
 

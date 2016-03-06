@@ -16,6 +16,8 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
         private readonly IInputsRepository _inputsRepository;
         private readonly ITransactionRepository _transactionRepository;
 
+        private const int ItemsOnPage = 20;
+
         public BlockController(IBitcoinBlockRepository bitcoinBlockRepository, IOutputsRepository outputsRepository, IInputsRepository inputsRepository, ITransactionRepository transactionRepository)
         {
             _bitcoinBlockRepository = bitcoinBlockRepository;
@@ -25,7 +27,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index(string id)
+        public async Task<ActionResult> Index(string id, int page)
         {
             if (string.IsNullOrEmpty(id))
                 return RedirectToAction("Index", "Home");
@@ -35,22 +37,21 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             if (getBlock == null)
                 return View("_NotFound");
 
-            var outputs = await _outputsRepository.GetAsync(getBlock.Hash);
-            var inputs = await _inputsRepository.GetAsync(getBlock.Hash);
-            var transactions = await _transactionRepository.GetAsync(getBlock.Hash);
+           // var outputs = await _outputsRepository.GetAsync(getBlock.Hash);
+           // var inputs = await _inputsRepository.GetAsync(getBlock.Hash);
+            var transactions = await _transactionRepository.GetAsync(getBlock.Hash, page, ItemsOnPage);
 
             var model = new BlockModel
             {
                 Block = getBlock,
-                Transactions =
-                    inputs.GroupBy(itm => itm.Txid)
-                        .ToDictionary(itm => itm.Key,
-                            itm => new TransactionModel { Inputs = itm, Outputs = new List<IOutput>(), Transactions = new List<ITransaction>() })
+                Transactions = transactions,
+                Count = (int) (getBlock.TotalTransactions - 1) / ItemsOnPage + 1,
+                CurrentPage = page
             };
 
 
 
-            foreach (var output in outputs)
+       /*     foreach (var output in outputs)
             {
                 if (!model.Transactions.ContainsKey(output.Txid))
                     model.Transactions.Add(output.Txid,
@@ -67,7 +68,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
                     model.Transactions[transaction.Txid].Confirmations = transaction.Confirmations;
                 }
 
-            }
+            }*/
 
             return View(model);
 
