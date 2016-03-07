@@ -196,10 +196,10 @@ table td.no-wrap, table th.no-wrap {
     background-color: #e2e2e2;
 }
 
-.show-details{
+.show-details-load{
     text-align: center;
 }
-.show-details a{
+.show-details-load a{
     font-size: 19px;
     text-transform: uppercase;
     display: block;
@@ -239,3 +239,5 @@ table td.no-wrap, table th.no-wrap {
 .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
     background-color: #eee;
 }
+.load-img{}
+.load-img img{}

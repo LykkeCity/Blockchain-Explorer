@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -105,6 +107,30 @@ namespace Sevices.Bitcoin
                 }
             catch (Exception ex)
             {
+
+
+
+/*                var webException = ex as WebException;
+
+
+                if (webException != null)
+                {
+                        using (var str = webException.Response.GetResponseStream())
+                        {
+                            using (var sr = new StreamReader(str))
+                            {
+                                var response = await sr.ReadToEndAsync();
+
+                                await _log.WriteWarning("JobsBlockTransfer", "SaveTransactionToDbWebException", itemTx, response);
+                            }
+                        }
+
+
+
+
+
+                    }*/
+
                     Console.WriteLine("Error - SaveTransactionToDb");
                     await _log.WriteError("JobsBlockTransfer", "SaveTransactionToDb", itemTx, ex);
             }

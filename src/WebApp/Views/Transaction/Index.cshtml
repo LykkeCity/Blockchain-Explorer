@@ -1,5 +1,5 @@
 ﻿@{
-    @model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
+    @model BitcoinChainExplorerForAspNet5.Models.TransactionModel
 }
 
 
@@ -61,8 +61,6 @@
                     </div>
                 </div>
             </div>
-@foreach (var address in Model.TransactionsAddreses)
-{
             <div class="panel panel-default transaction-details">
                 <div class="panel-heading">
                     <h3 class="panel-title">Bitcoin</h3>
@@ -80,51 +78,48 @@
                                     </span>
                                 </span>
                             </div>
-                           
-                                <div class="inputs">
-                                    @foreach (var input in address.Value.Inputs)
+                            <div class="inputs">
+                                @foreach (var input in Model.Inputs)
+                                {
+                                    <div class="address-item ">
+                                        <div class="amount">
+                                            - @($"{Convert.ToDecimal(input.Value):G29}")
+                                        </div>
+                                        <div class="address">
+                                            <i class="fa fa-lg fa-arrow-left"></i>
+                                            @input.Addresses
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="outputs">
+                                <div class="outputs-container">
+                                    <div class="center-chevron">
+                                        <i class="fa fa-chevron-right fa-lg"></i>
+                                    </div>
+
+                                    @foreach (var output in Model.Outputs)
                                     {
                                         <div class="address-item ">
                                             <div class="amount">
-                                                - @($"{Convert.ToDecimal(input.Value):G29}")
+                                                @($"{Convert.ToDecimal(output.Value):G29}")
                                             </div>
                                             <div class="address">
-                                                <i class="fa fa-lg fa-arrow-left"></i>
-                                                @input.Addresses
+                                                @output.Addresses
                                             </div>
                                         </div>
                                     }
-                                </div>
-
-                                <div class="outputs">
-                                    <div class="outputs-container">
-                                        <div class="center-chevron">
-                                            <i class="fa fa-chevron-right fa-lg"></i>
+                                    <div class="address-item ">
+                                        <div class="amount">
+                                            @($"{Convert.ToDecimal(Model.Fee):F8}")
                                         </div>
-                                        @foreach (var output in address.Value.Outputs)
-                                        {
-                                            <div class="address-item ">
-                                                <div class="amount">
-                                                    @($"{Convert.ToDecimal(output.Value):G29}")
-                                                </div>
-                                                <div class="address">
-                                                    @output.Addresses
-                                                </div>
-                                            </div>
-                                        }
-                                        <div class="address-item ">
-                                            <div class="amount">
-                                               @($"{Convert.ToDecimal(address.Value.Fee):F8}")
-                                            </div>
-                                            <div class="address">
-                                                Fees
-
-                                            </div>
+                                        <div class="address">
+                                            Fees
                                         </div>
-
                                     </div>
                                 </div>
-                            
+                            </div>
                         </div>
 
                     </li>
@@ -133,7 +128,7 @@
                 </ul>
 
             </div>
-}
+
         </div>
 
     </div>

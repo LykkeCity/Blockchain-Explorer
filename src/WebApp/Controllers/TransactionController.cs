@@ -35,28 +35,12 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             var inputs = await _inputsRepository.GetAsync(trnsct.Blockhash);
 
 
-            var model = new TransactionViewModel
+            var model = new TransactionModel
             {
-                Transaction = trnsct,
-                TransactionsAddreses  =
-                    inputs.Where(txId => txId.Txid == trnsct.Txid).GroupBy(itm => itm.Txid)
-                        .ToDictionary(itm => itm.Key,
-                            itm => new TransactionModel { Inputs = itm, Outputs = new List<IOutput>(), Transactions = new List<ITransaction>() })
+                Inputs = inputs.Where(itm => itm.Txid == trnsct.Txid),
+                Outputs = outputs.Where(itm => itm.Txid == trnsct.Txid),
+                Transaction = trnsct
             };
-
-            foreach (var output in outputs)
-            {
-                if (output.Txid == trnsct.Txid)
-                {
-                    if (!model.TransactionsAddreses.ContainsKey(output.Txid))
-                        model.TransactionsAddreses.Add(output.Txid,
-                            new TransactionModel { Outputs = new List<IOutput>(), Inputs = new IInput[0], Transactions = new List<ITransaction>() });
-
-                    model.TransactionsAddreses[output.Txid].Outputs.Add(output);
-                    model.Fee = model.TransactionsAddreses[output.Txid].Fee;
-                }
-                
-            }
 
 
             return View(model);

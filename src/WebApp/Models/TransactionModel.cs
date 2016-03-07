@@ -14,9 +14,9 @@ namespace BitcoinChainExplorerForAspNet5.Models
 
     public class TransactionModel
     {
-        public List<IOutput> Outputs { get; set; }
+        public IEnumerable<IOutput> Outputs { get; set; }
         public IEnumerable<IInput> Inputs { get; set; }
-        public List<ITransaction> Transactions { get; set; }
+        public ITransaction Transaction { get; set; }
         public DateTime Time { get; set; }
         public long Confirmations { get; set; }
 

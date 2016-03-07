@@ -73,5 +73,24 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             return View(model);
 
         }
+
+        public async Task<ActionResult> TransactionDetails(string id)
+        {
+            var trnsct = await _transactionRepository.GetTransaction(id);
+
+            var outputs = await _outputsRepository.GetAsync(trnsct.Blockhash);
+            var inputs = await _inputsRepository.GetAsync(trnsct.Blockhash);
+
+
+            var model = new TransactionModel
+            {
+               Inputs = inputs.Where(itm => itm.Txid == trnsct.Txid),
+               Outputs = outputs.Where(itm => itm.Txid == trnsct.Txid)
+            };
+
+
+
+            return View(model);
+        }
     }
 }
