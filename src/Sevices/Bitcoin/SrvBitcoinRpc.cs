@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +41,7 @@ namespace Sevices.Bitcoin
             webRequest.ContentType = "application/json-rpc";
             webRequest.Method = "POST";
 
+
             JObject joe = new JObject();
             joe["jsonrpc"] = "1.0";
             joe["id"] = "1";
@@ -65,7 +68,8 @@ namespace Sevices.Bitcoin
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
             }
-
+            
+           
             using (WebResponse webResponse = await webRequest.GetResponseAsync())
             {
                 using (Stream str = webResponse.GetResponseStream())

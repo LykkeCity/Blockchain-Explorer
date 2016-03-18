@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Core.Bitcoin;
 using Newtonsoft.Json;
 
 namespace Sevices.Bitcoin.Models
@@ -17,7 +18,7 @@ namespace Sevices.Bitcoin.Models
     }
 
 
-    public class GetBlockRpcModel
+    public class GetBlockRpcModel : IBitcoinBlockRPC
     {
         
         [JsonProperty("hash")]
@@ -25,7 +26,7 @@ namespace Sevices.Bitcoin.Models
         [JsonProperty("tx")]
         public string[] Tx { get; set; }
         [JsonProperty("time")]
-        private uint Time { get; set; }
+        public uint Time { get; set; }
         [JsonProperty("height")]
         public long Height { get; set; }
         [JsonProperty("previousblockhash")]
@@ -39,6 +40,8 @@ namespace Sevices.Bitcoin.Models
         [JsonProperty("nonce")]
         public long Nonce { get; set; }
 
+        DateTime IBitcoinBlockRPC.Time => GetTime();
+
         public DateTime GetTime()
         {
             return Time.FromUnixDateTime();
@@ -50,4 +53,6 @@ namespace Sevices.Bitcoin.Models
         }
 
     }
+
+
 }

@@ -4,17 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using AzureRepositories;
 using Common.Log;
+using Core.Bitcoin;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Sevices.Bitcoin;
 
 namespace BitcoinChainExplorerForAspNet5
 {
 
     public class Startup
     {
+
 
         public Startup(IHostingEnvironment env)
         {
@@ -48,6 +51,15 @@ namespace BitcoinChainExplorerForAspNet5
             {
                 connectString = "UseDevelopmentStorage=true";
             }
+            var bitcoinRpcSettings = new SrvBitcoinRpcSettings
+            {
+                HostPort = Configuration.Get<string>("RpcHostPort"),
+                Password = Configuration.Get<string>("RpcPassword"),
+                User = Configuration.Get<string>("RpcUser")
+            };
+            services.AddInstance(new SrvBitcoinRpc(bitcoinRpcSettings));
+            services.AddTransient<ISrvRpcReader, SrvRpcReader>();
+
 
             var log = new LogToConsole();
             services.AddInstance<ILog>(log);

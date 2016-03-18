@@ -5,8 +5,7 @@ using Newtonsoft.Json;
 
 namespace Sevices.Bitcoin.Models
 {
-    public class GetRawTransactionPrcModel
-    {
+    public class GetRawTransactionPrcModel   {
         [JsonProperty("txid")]
         public string Txid { get; set; }
         [JsonProperty("blockhash")]

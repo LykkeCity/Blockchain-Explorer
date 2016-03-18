@@ -32,7 +32,7 @@ namespace BitcoinBridge
                 var serviceProvider = services.BuildServiceProvider();
                 var start = ActivatorUtilities.CreateInstance<JobsBlockTransfer>(serviceProvider);
                 //var start = ioc.CreateInstance<JobsBlockTransfer>();
-                start.Start();
+                start.Start(appSettings.FirstHashBlock);
                 Console.WriteLine("Started...");
                 Console.ReadLine();
             }

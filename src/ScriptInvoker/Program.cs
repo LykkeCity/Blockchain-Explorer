@@ -7,6 +7,7 @@ using AzureRepositories.Bitcoin;
 using AzureStorage.Tables;
 using AzureStorage.Tables.Templates.Index;
 using Common.Log;
+using Sevices.Bitcoin;
 
 namespace ScriptInvoker
 {
@@ -16,9 +17,11 @@ namespace ScriptInvoker
         {
             Console.WriteLine("Start");
             var log = new LogToConsole();
-            var conectionString = "";
-         //   var tr = new TransactionRepository(new AzureTableStorage<TransactionEntity>(conectionString, "Transaction", log), new AzureTableStorage<AzureIndex>(conectionString, "TransactionIdx", log));
+            //var conectionString = "";
+            //   var tr = new TransactionRepository(new AzureTableStorage<TransactionEntity>(conectionString, "Transaction", log), new AzureTableStorage<AzureIndex>(conectionString, "TransactionIdx", log));
             //tr.UpdateIndexec().Wait();
+
+
             Console.ReadLine();
         }
     }

@@ -216,3 +216,7 @@ src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/bitcoin-explorer -
 src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/blockchain-explorer - FTP.pubxml
 src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/blockchain-explorer - Web Deploy.pubxml
 src/BitcoinChainExplorerForAspNet5/Properties/PublishProfiles/blockchain-explorer - Web Deploy-publish.ps1
+src/WebApp/Properties/PublishProfiles/blockchain-explorer-test - FTP.pubxml
+src/WebApp/Properties/PublishProfiles/blockchain-explorer-test - Web Deploy.pubxml
+src/WebApp/Properties/PublishProfiles/blockchain-explorer-test - Web Deploy-publish.ps1
+src/BitcoinBridge/settings.json

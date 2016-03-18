@@ -7,6 +7,7 @@ namespace BitcoinBridge
     {
         public SrvBitcoinRpcSettings BitcoinRpcSettings { get; set; }
         public string ConnectionString { get; set; }
+        public string FirstHashBlock { get; set; }
     }
 
 

@@ -23,9 +23,15 @@ namespace Sevices.Bitcoin
     private readonly IInputsRepository _inputsRepository;
     private readonly ILog _log;
 
-    private const string FirstBlock = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f";
+        private string _firstBlock = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f";
 
-    public JobsBlockTransfer(ILog log, SrvBitcoinRpc bitcoinRpc, ILastImportendBlockHash lastIportendBlockHash,
+        public void Start(string firsthashblock)
+        {
+            _firstBlock = firsthashblock;
+            base.Start();
+        }
+
+        public JobsBlockTransfer(ILog log, SrvBitcoinRpc bitcoinRpc, ILastImportendBlockHash lastIportendBlockHash,
         IBitcoinBlockRepository bitcoinBlockRepository, ITransactionRepository transactionRepository, IOutputsRepository outputsRepository, IInputsRepository inputsRepository)
             : base("JobsBlockTransfer", 1, log)
         {
@@ -43,7 +49,7 @@ namespace Sevices.Bitcoin
 
         var hashToImport = await _lastIportendBlockHash.GetAsync();
         if (string.IsNullOrEmpty(hashToImport))
-            hashToImport = FirstBlock;
+            hashToImport = _firstBlock;
 
         var block = await _bitcoinRpc.GetBlockAsync(hashToImport);
 
@@ -110,7 +116,7 @@ namespace Sevices.Bitcoin
 
 
 
-/*                var webException = ex as WebException;
+               /*var webException = ex as WebException;
 
 
                 if (webException != null)
@@ -143,6 +149,7 @@ namespace Sevices.Bitcoin
 
     private async Task SaveOutputsToDb(GetRawTransactionPrcModel tx)
     {
+            
         foreach (var itmVout in tx.Vout.Where(itm => itm.ScriptPubKey.Addresses != null))
         {
 
