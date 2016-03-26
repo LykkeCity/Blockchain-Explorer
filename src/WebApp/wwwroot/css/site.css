@@ -442,3 +442,8 @@ a{color: #5FC2FA}
     border-top: 1px solid #E0E0E0;
     padding: 15px 0px;
 }
+
+.navbar-inverse .navbar-toggle {
+    border-color: #171C8F;
+    background: #2D329A;
+}

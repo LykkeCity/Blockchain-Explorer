@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-<div class="icon">
+<div class="icon dspl-icon">
     <span class="currency-icon thumbnail">
         <span class="bg-warning">
             <i class="fa fa-btc"></i>
@@ -18,7 +18,7 @@
                 - @($"{Convert.ToDecimal(input.Value):G29}")
             </div>
             <div class="address">
-                <i class="fa fa-lg fa-arrow-left"></i>
+                <i class="fa fa-lg fa-arrow-left displ-fa"></i>
                 @input.Addresses
             </div>
         </div>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         }
-        <div class="address-item ">
+        <div class="address-item div-fees">
             <div class="amount">
                 @($"{Convert.ToDecimal(Model.Fee):F8}")
             </div>
