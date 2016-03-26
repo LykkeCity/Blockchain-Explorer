@@ -8,6 +8,7 @@ using AzureStorage.Tables;
 using AzureStorage.Tables.Templates.Index;
 using Common.Log;
 using Sevices.Bitcoin;
+using Sevices.BitcoinNinja;
 
 namespace ScriptInvoker
 {

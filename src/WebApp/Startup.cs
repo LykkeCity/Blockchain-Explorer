@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using AzureRepositories;
 using Common.Log;
 using Core.Bitcoin;
+using Core.BitcoinNinja;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sevices.Bitcoin;
+using Sevices.BitcoinNinja;
 
 namespace BitcoinChainExplorerForAspNet5
 {
@@ -60,6 +62,15 @@ namespace BitcoinChainExplorerForAspNet5
             services.AddInstance(new SrvBitcoinRpc(bitcoinRpcSettings));
             services.AddTransient<ISrvRpcReader, SrvRpcReader>();
 
+
+            var bitcoinNinjaSettings = new SrvBitcoinNinjaSettings
+            {
+                UrlMainNinja = Configuration.Get<string>("UrlMainNinja"),
+                UrlTestNetNinja = Configuration.Get<string>("UrlTestNetNinja"),
+                Network = Configuration.Get<string>("Network")
+            };
+
+            services.AddInstance<IBitcoinNinjaReaderRepository>(new SrvBitcoinNinjaReader(bitcoinNinjaSettings));
 
             var log = new LogToConsole();
             services.AddInstance<ILog>(log);

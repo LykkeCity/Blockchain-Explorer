@@ -4,7 +4,7 @@
     @Html.Partial("HeadPartial")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse " role="navigation">
         <div class="container">
             @Html.Partial("PartialLogoAndNavbarHeader")
             <div class="collapse navbar-collapse">
@@ -14,10 +14,20 @@
         </div>
     </div>
 
-    <div class="container">
-        @RenderBody()
-    </div>
-    @Html.Partial("BottomPartial")
+<div class="container">
+    @RenderBody()
+</div>
+
+    <footer class="footer" style="position: absolute">
+        <div class="container">
+            <div class="copyr">© Lykke 2016</div>
+            <div class="pull-right f-social">
+                <a href=""><img src="~/images/fb.png" /></a>
+                <a href=""><img src="~/images/tw.png" /></a>
+            </div>
+        </div>
+    </footer>
+@Html.Partial("BottomPartial")
 
     @RenderSection("scripts", required: false)
 </body>

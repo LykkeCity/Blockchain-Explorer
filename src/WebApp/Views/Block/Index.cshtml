@@ -8,7 +8,8 @@
 
 <div class="container">
     <header class="top-nav-links clearfix">
-        <h1>Block</h1>
+        <h1>Block @Model.Block.Height</h1>
+        <div class="block-h-top">@Model.Block.Hash</div>
     </header>
 
     <div class="page-content">
@@ -36,16 +37,10 @@
                             <td class="no-wrap">Previous block</td>
                             <td class="expand-column"><a asp-controller="Block"  asp-route-id="@Model.Block.Previousblockhash" >@Model.Block.Previousblockhash</a></td>
                         </tr>
-                        <tr>
-                            <td class="no-wrap">Next block</td>
-                            <td class="expand-column"><a asp-controller="Block"  asp-route-id="@Model.Block.Nextblockhash">@Model.Block.Nextblockhash</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <table class="table table-rounded ">
-                    <tbody>
+                    <tr>
+                        <td class="no-wrap">Next block</td>
+                        <td class="expand-column"><a asp-controller="Block" asp-route-id="@Model.Block.Nextblockhash">@Model.Block.Nextblockhash</a></td>
+                    </tr>
                         <tr>
                             <td class="no-wrap">Difficulty</td>
                             <td class="expand-column">@($"{Model.Block.Difficulty:N}")</td>
@@ -64,31 +59,24 @@
         </div>
 
         <hr>
-        <h3 class="transactions-header">Transactions</h3>
+        <h3 class="transactions-header">@Model.Block.TotalTransactions Transactions</h3>
 
         @foreach (var transaction in Model.Transactions)
         {
             <div class="panel panel-success transaction-details">
-                <div class="panel-heading">
-                    <h3 class="panel-title address-transaction-header"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@transaction.Txid">@transaction.Txid</a></h3>
+                <div class="panel-heading row"> 
+                    <h3 class="panel-title address-transaction-header col-sm-7"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@transaction.Txid">@transaction.Txid</a>
+                    </h3>
+                    <div class="col-sm-3 text-center tr-date">@($"{transaction.Time:F}")</div>
+                    <div class="confirmation-label col-sm-2 text-center">
+                            <span>confirmed</span>
+                    </div>
                 </div>
 
                 <ul class="list-group">
 
-                    <li class="list-group-item clearfix">
-                        <div class="confirmation-label">
-                            <span class="label label-success">
-                                @transaction.Confirmations  confirmation
-                            </span>
-
-                        </div>
-
-                        <div>@($"{transaction.Time:F}")</div>
-
-                    </li>
-
                     <li class="list-group-item clearfix section-header">
-                        <h3 class="panel-title">Bitcoin</h3>
+                        <h3 class="panel-title hd-bt">Bitcoin</h3>
                     </li>
 
                     <li class="list-group-item clearfix intput-output-group-list-item">
@@ -113,7 +101,7 @@
         }
     </div>
     <div class="footer-push">
-    <div class="text-right">
+    <div class="text-center">
         <ul class="pagination">
 
            @if (Model.Count < 10)

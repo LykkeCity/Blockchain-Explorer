@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Bitcoin;
+using Core.BitcoinNinja;
 
 namespace BitcoinChainExplorerForAspNet5.Models
 {
     public class TransactionViewModel
     {
-        public ITransaction Transaction { get; set; }
-        public double Fee { get; set; }
-        public IDictionary<string, TransactionModel> TransactionsAddreses { get; set; }
+        public ITransactionNinja Transaction { get; set; }
     }
 
     public class TransactionModel

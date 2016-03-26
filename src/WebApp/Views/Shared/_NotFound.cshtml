@@ -6,7 +6,7 @@
 
 <div class="container">
     <header class="top-nav-links clearfix">
-        <h1>Not found</h1>
+        <h1>404 Not found</h1>
     </header>
 
     <div class="page-content">
@@ -17,9 +17,13 @@
             <i class="fa fa-exclamation-triangle icon-white"></i> <span>Sorry, we couldn't find the page you were looking for.</span>
         </div>
 
-        <div style="width: 30%;margin: 0 auto;" class="error-image thumbnail">
-            <img src="/Img/error.png">
+
+        <div class="text-center">
+            <a asp-action="index" asp-controller="home"><img src="/images/logo.png"></a>
         </div>
+        
+
+
     </div>
     <div class="footer-push"></div>
 </div>

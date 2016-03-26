@@ -18,25 +18,42 @@
         <div class="container">
             @Html.Partial("PartialLogoAndNavbarHeader")
             <div class="collapse navbar-collapse">
-                @Html.Partial("PartialMenu")
-                <div class="pull-right search-header">
-                    <form method="get" asp-controller="Block" asp-antiforgery="false" asp-action="Index" class="form-inline">
-                        <div class="input-group search">
-                            <input type="text" class="form-control input-sm" name="id">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success input-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="search-header">
+                            <form method="get" asp-controller="Block" asp-antiforgery="false" asp-action="Index" class="form-inline">
+                                <div class="input-group search">
+                                    <input type="text" class="form-control input-sm search-top" placeholder="Search blocks" name="id">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-s-top" type="submit"></button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Partial("PartialMenu")
+                    </div>
                 </div>
+           
+              
             </div><!--/.nav-collapse -->
 
         </div>
     </div>
 
-    <div class="container">
-        @RenderBody()
-    </div>
+<div class="container">
+    @RenderBody()
+</div>
+    <footer class="footer">
+        <div class="container">
+            <div class="copyr">© Lykke 2016</div>
+            <div class="pull-right f-social">
+                <a href=""><img src="~/images/fb.png" /></a>
+                <a href=""><img src="~/images/tw.png" /></a>
+            </div>
+        </div>
+    </footer>
     @Html.Partial("BottomPartial")
 
     @RenderSection("scripts", required: false)

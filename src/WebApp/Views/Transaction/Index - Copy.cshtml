@@ -1,0 +1,134 @@
+﻿@{
+    @model BitcoinChainExplorerForAspNet5.Models.TransactionModel
+}
+
+
+<div class="container">
+    <header class="top-nav-links clearfix">
+        <h1>Transaction</h1>
+        <div class="tr-h-top">@Model.Transaction.Txid</div>
+    </header>
+
+    <div class="page-content">
+        <div class="transaction-explorer">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="title-bl">Advanced details</div>
+                    <table class="table table-rounded ">
+                        <tbody>
+                        <tr>
+                            <td class="no-wrap">Hash</td>
+                            <td class="expand-column">@Model.Transaction.Txid</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Date</td>
+                            <td class="expand-column">@($"{Model.Transaction.Time:F}")</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Fee paid</td>
+                            <td class="expand-column">@($"{Convert.ToDecimal(Model.Fee):F8}") BTC</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Assets transacted</td>
+                            <td class="expand-column">None</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-5">
+                    <div class="title-bl">Transaction confirmed</div>
+                    <table class="table table-rounded ">
+                        <tbody>
+                            <tr>
+                                <td class="no-wrap">Confirmations</td>
+                                <td class="expand-column">@Model.Transaction.Confirmations confirmations</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Time</td>
+                                <td class="expand-column">@($"{Model.Transaction.Time:F}")</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Block</td>
+                                <td class="expand-column"><a asp-controller="Block" asp-action="Index" asp-route-id="@Model.Transaction.Blockhash">@Model.Transaction.Blockhash</a></td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Height</td>
+                                <td class="expand-column">@Model.Transaction.Height</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default transaction-details tr-de-inner">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bitcoin</h3>
+                </div>
+
+                <ul class="list-group">
+
+                    <li class="list-group-item clearfix intput-output-group-list-item">
+
+                        <div class="intput-output-group">
+                            <div class="icon">
+                                <span class="currency-icon thumbnail">
+                                    <span class="bg-warning">
+                                        <i class="fa fa-btc"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="inputs">
+                                @foreach (var input in Model.Inputs)
+                                {
+                                    <div class="address-item ">
+                                        <div class="amount">
+                                            - @($"{Convert.ToDecimal(input.Value):G29}")
+                                        </div>
+                                        <div class="address">
+                                            <i class="fa fa-lg fa-arrow-left"></i>
+                                            @input.Addresses
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="outputs">
+                                <div class="outputs-container">
+                                    <div class="center-chevron">
+                                        <img src="~/images/arrow.png" />
+                                    </div>
+
+                                    @foreach (var output in Model.Outputs)
+                                    {
+                                        <div class="address-item ">
+                                            <div class="amount">
+                                                @($"{Convert.ToDecimal(output.Value):G29}")
+                                            </div>
+                                            <div class="address">
+                                                @output.Addresses
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="address-item ">
+                                        <div class="amount">
+                                            @($"{Convert.ToDecimal(Model.Fee):F8}")
+                                        </div>
+                                        <div class="address">
+                                            Fees
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="footer-push"></div>
+</div>
