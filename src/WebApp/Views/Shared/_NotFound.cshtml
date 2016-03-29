@@ -5,24 +5,20 @@
 
 
 <div class="container">
-    <header class="top-nav-links clearfix">
-        <h1>404 Not found</h1>
-    </header>
+
 
     <div class="page-content">
-
-
-
-        <div class="alert alert-danger top-page-alert">
-            <i class="fa fa-exclamation-triangle icon-white"></i> <span>Sorry, we couldn't find the page you were looking for.</span>
+        <div class="text-center notFound">
+            <a asp-action="index" asp-controller="home"><img src="/images/404.png"></a>
         </div>
-
-
         <div class="text-center">
-            <a asp-action="index" asp-controller="home"><img src="/images/logo.png"></a>
+            This content has been moved or is no longer available.<br>
+            If you have any other problem contact ous support:.<br>
+            <a href="mailto:support@lykkex.com">support@lykkex.com</a>
         </div>
-        
-
+        <div class="goback">
+            <a asp-action="index" asp-controller="home" class="btn-2 ">Go back</a>
+        </div>
 
     </div>
     <div class="footer-push"></div>

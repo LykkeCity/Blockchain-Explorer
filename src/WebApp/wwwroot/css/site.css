@@ -447,3 +447,25 @@ a{color: #5FC2FA}
     border-color: #171C8F;
     background: #2D329A;
 }
+.notFound{
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.notFound img{width: 100%}
+
+.btn-2 {
+    background: url('../images/btn_2.png');
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.goback{margin: 20px 0px;}
+.goback a{
+    width: 100px;
+    text-align: center;
+    color: #fff;
+    text-decoration: blink;
+    padding: 8px 0px;
+    margin: 0 auto;
+}
