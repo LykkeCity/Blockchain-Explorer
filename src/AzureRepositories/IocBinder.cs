@@ -1,4 +1,5 @@
 ﻿using AzureRepositories.Bitcoin;
+using AzureStorage.Blobs;
 using AzureStorage.Tables;
 using AzureStorage.Tables.Templates.Index;
 using Common.Log;
@@ -17,6 +18,8 @@ namespace AzureRepositories
             services.AddInstance<ITransactionRepository>(new TransactionRepository(new AzureTableStorage<TransactionEntity>(connectionString, "Transaction", log)));
             services.AddInstance<IOutputsRepository>(new OutputsRepository(new AzureTableStorage<OutputEntity>(connectionString, "Outputs", log)));
             services.AddInstance<IInputsRepository>(new InputsRepository(new AzureTableStorage<InputEntity>(connectionString, "Inputs", log)));
+            services.AddInstance<IAssetsRepository>(new AssetsRepository(new AzureTableStorage<AssetsEntity>(connectionString, "Assets", log)));
+            services.AddInstance<IAssetsOwnersRepository>(new AssetsOwnersRepository(new AzureTableStorage<AssetsOwnersEntity>(connectionString, "AssetsOwners", log), new AzureBlobStorage(connectionString)));
         }
     }
 }

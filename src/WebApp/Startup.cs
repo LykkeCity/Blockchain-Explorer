@@ -6,6 +6,7 @@ using AzureRepositories;
 using Common.Log;
 using Core.Bitcoin;
 using Core.BitcoinNinja;
+using Core.CoinprismApi;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sevices.Bitcoin;
 using Sevices.BitcoinNinja;
+using Sevices.CoinprismApi;
 
 namespace BitcoinChainExplorerForAspNet5
 {
@@ -71,6 +73,15 @@ namespace BitcoinChainExplorerForAspNet5
             };
 
             services.AddInstance<IBitcoinNinjaReaderRepository>(new SrvBitcoinNinjaReader(bitcoinNinjaSettings));
+
+            var coniprismApiSettings = new CoinprismApiSettings
+            {
+                Network = Configuration.Get<string>("Network"),
+                UrlCoinprismApiTestnet = Configuration.Get<string>("UrlCoinprismApiTestnet"),
+                UrlCoinprismApi = Configuration.Get<string>("UrlCoinprismApi")
+            };
+
+            services.AddInstance<ISrvCoinprismReader>(new SrvCoinprismReader(coniprismApiSettings));
 
             var log = new LogToConsole();
             services.AddInstance<ILog>(log);
