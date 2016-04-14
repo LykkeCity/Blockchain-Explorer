@@ -15,7 +15,7 @@ namespace Core.BitcoinNinja
         IEnumerable<InputsNinja> AssetData { get; }
     }
 
-    public class BlockNinja : IBlockNinja
+    public class BlockNinja 
     {
         [JsonProperty("blockId")]
         public string Hash { get; set; }

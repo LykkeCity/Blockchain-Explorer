@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Threading.Tasks
+@using Core
+@model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
+<ul class="list-group">
+
+    <li class="list-group-item clearfix intput-output-group-list-item">
+
+        <div class="intput-output-group">
+            <div class="icon dspl-icon">
+                <span class="currency-icon thumbnail">
+                    <span class="bg-warning">
+                        <i class="fa fa-btc"></i>
+                    </span>
+                </span>
+            </div>
+            <div class="inputs">
+                @foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == null))
+                {
+                    <div class="address-item ">
+                        <div class="amount">
+                            - @BitcoinUtils.SatoshiToBtc(input.Value)
+                        </div>
+                        <div class="address">
+                            <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                            @input.Address
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="outputs">
+                <div class="outputs-container">
+                    <div class="center-chevron">
+                        <img src="~/images/arrow.png" />
+                    </div>
+
+                    @foreach (var output in Model.Transaction.Outputs.Where(output => output.Address != null && output.AssetId == null))
+                    {
+                        <div class="address-item ">
+                            <div class="amount">
+                                @BitcoinUtils.SatoshiToBtc(output.Value)
+                            </div>
+                            <div class="address">
+                                @output.Address
+                            </div>
+                        </div>
+                    }
+                    <div class="address-item div-fees">
+                        <div class="amount">
+                            @BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees)
+                        </div>
+                        <div class="address">
+                            Fees
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </li>
+    @if (Model.Transaction.AssetData.Any())
+    {
+        foreach (var assetDataItm in Model.Transaction.AssetData)
+        {
+            <li class="list-group-item clearfix intput-output-group-list-item assetBlock">
+                <div class="assetid">@assetDataItm.AssetId</div>
+                <div class="intput-output-group">
+                    <div class="icon dspl-icon">
+                        <span class="currency-icon thumbnail">
+                            <span class="bg-warning">
+                                <i class="fa fa-btc"></i>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="inputs">
+                        @foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == assetDataItm.AssetId))
+                        {
+                            <div class="address-item ">
+                                <div class="amount">
+                                    - @BitcoinUtils.SatoshiToBtc(input.Value)
+                                </div>
+                                <div class="address">
+                                    <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                                    @input.Address
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="outputs">
+                        <div class="outputs-container">
+                            <div class="center-chevron">
+                                <img src="~/images/arrow.png" />
+                            </div>
+
+                            @foreach (var output in Model.Transaction.Outputs.Where(output => output.Address != null && output.AssetId == assetDataItm.AssetId))
+                            {
+                                <div class="address-item ">
+                                    <div class="amount">
+                                        @BitcoinUtils.SatoshiToBtc(output.Value)
+                                    </div>
+                                    <div class="address">
+                                        @output.Address
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        }
+
+    }
+
+
+</ul>

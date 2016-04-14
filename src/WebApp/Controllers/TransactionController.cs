@@ -33,8 +33,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             {
                 Transaction = transactin
             };
-
-            return View(model);
+            return Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? View("PartialTransactionDetails", model) : View(model);
         }
     }
 }

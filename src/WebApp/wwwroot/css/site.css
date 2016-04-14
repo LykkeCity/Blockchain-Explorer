@@ -423,7 +423,7 @@ a{color: #5FC2FA}
     border: none;
 }
 
-.tr-de-inner.colortr {
+.colortr {
      background-image: url('../images/line.png');
      background-repeat: repeat-y;
      border: none;
@@ -431,7 +431,7 @@ a{color: #5FC2FA}
      background-size: 2px 100%;
 }
 .tr-de-inner{
-    border-left: 2px solid #D4D4D4;
+    /* border-left: 2px solid #D4D4D4; */
 }
 
 .inputs{padding-right: 30px !important;}

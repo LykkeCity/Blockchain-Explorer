@@ -1,9 +1,10 @@
 ﻿using Core.Bitcoin;
+using Core.BitcoinNinja;
 
 namespace BitcoinChainExplorerForAspNet5.Models
 {
     public class IndexModel
     {
-        public ILastBlock LastBlock { get; set; }
+        public IlastBlockNinja LastBlock { get; set; }
     }
 }

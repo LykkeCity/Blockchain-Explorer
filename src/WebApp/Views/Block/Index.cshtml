@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Block - " + Model.Block.Hash;
     Layout = "~/Views/Shared/_LayoutInner.cshtml";
-    var count = 0;
 }
 
 <div class="container pd">
@@ -35,19 +34,15 @@
                         </tr>
                         <tr>
                             <td class="no-wrap">Previous block</td>
-                            <td class="expand-column"><a asp-controller="Block"  asp-route-id="@Model.Block.Previousblockhash" >@Model.Block.Previousblockhash</a></td>
+                            <td class="expand-column"><a asp-controller="Block"  asp-route-id="@Model.Block.PreviousBlock" >@Model.Block.PreviousBlock</a></td>
                         </tr>
-                    <tr>
-                        <td class="no-wrap">Next block</td>
-                        <td class="expand-column"><a asp-controller="Block" asp-route-id="@Model.Block.Nextblockhash">@Model.Block.Nextblockhash</a></td>
-                    </tr>
                         <tr>
                             <td class="no-wrap">Difficulty</td>
                             <td class="expand-column">@($"{Model.Block.Difficulty:N}")</td>
                         </tr>
                         <tr>
                             <td class="no-wrap">Merkle Root</td>
-                            <td class="expand-column">@Model.Block.Merkleroot</td>
+                            <td class="expand-column">@Model.Block.MerkleRoot</td>
                         </tr>
                         <tr>
                             <td class="no-wrap">Nonce</td>
@@ -61,15 +56,18 @@
         <hr>
         <h3 class="transactions-header">@Model.Block.TotalTransactions Transactions</h3>
 
-        @foreach (var transaction in Model.Transactions)
+        @for (var i = Model.Start; i < Model.Max; i++)
         {
-            <div class="panel panel-success transaction-details">
-                <div class="panel-heading row"> 
-                    <h3 class="panel-title address-transaction-header col-sm-7"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@transaction.Txid">@transaction.Txid</a>
+            var divclass = Model.Block.ListTranasction[i].IsColor  ? "colortr" : "";
+            <br>
+            <div class="panel panel-success transaction-details @divclass">
+                <div class="panel-heading row">
+                    <h3 class="panel-title address-transaction-header col-sm-7">
+                        <a asp-controller="Transaction" asp-action="Index" asp-route-id="@Model.Block.ListTranasction[i].TxId">@Model.Block.ListTranasction[i].TxId</a>
                     </h3>
-                    <div class="col-sm-3 text-center tr-date">@($"{transaction.Time:F}")</div>
+                    <div class="col-sm-3 text-center tr-date"></div>
                     <div class="confirmation-label col-sm-2 text-center">
-                            <span>confirmed</span>
+                        <span>confirmed</span>
                     </div>
                 </div>
 
@@ -89,7 +87,7 @@
                                     </span>
                                 </span>
                             </div>
-                            <div class="show-details-load" data-tx="@transaction.Txid"><a href="" >show details</a></div>
+                            <div class="show-details-load" data-tx="@Model.Block.ListTranasction[i].TxId"><a href="">show details</a></div>
                         </div>
 
                     </li>
@@ -99,6 +97,7 @@
 
             </div>
         }
+
     </div>
     <div class="footer-push">
     <div class="text-center">

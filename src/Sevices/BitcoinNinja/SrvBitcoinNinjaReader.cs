@@ -1,8 +1,13 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Core.BitcoinNinja;
 using Common;
+using Common.Json;
+using NBitcoin;
+using NBitcoin.OpenAsset;
 using Newtonsoft.Json;
 using Sevices.BitcoinNinja.Models;
 
@@ -49,5 +54,61 @@ namespace Sevices.BitcoinNinja
             var result = JsonConvert.DeserializeObject<TransactionNinjaModel>(json);
             return result;
         }
+
+        public async Task<IlastBlockNinja> GetLastBlockAsync()
+        {
+            var json = await InvokeMethod(Url + "blocks/tip");
+            var result = JsonConvert.DeserializeObject<LastBlockModel>(json);
+            return result;
+        }
+
+        private async Task<BlockNinjaModel> GetBlockAsync(string block)
+        {
+            var json = await InvokeMethod(Url + "blocks/" + block);
+            var result = JsonConvert.DeserializeObject<BlockNinjaModel>(json);
+            return result;
+        }
+
+        public async Task<IBlockNinja> GetTrGetInformationBlockAsync(string blockHesh)
+        {
+            var infoBlockApiNinja = await GetBlockAsync(blockHesh);
+            var parseBlock = Block.Parse(infoBlockApiNinja.Hex);            
+            var trListForBlockJson = GetTransactionsForBlockInString(infoBlockApiNinja.Hex);
+            var trListForBlock = JsonConvert.DeserializeObject<BlockNinjaModel>(trListForBlockJson);
+           
+
+            return new BlockViewNinjaModel
+            {
+                Confirmations = infoBlockApiNinja.Confirmations,
+                Time = infoBlockApiNinja.Time,
+                Height = infoBlockApiNinja.Height,
+                Hash = parseBlock.Header.ToString(),
+                TotalTransactions = parseBlock.Transactions.Count,
+                ListTranasction = trListForBlock.ListTranasction,
+                Difficulty = parseBlock.Header.Bits.Difficulty,
+                MerkleRoot = parseBlock.Header.HashMerkleRoot.ToString(),
+                PreviousBlock = parseBlock.Header.HashPrevBlock.ToString(),
+                Nonce = parseBlock.Header.Nonce
+            };
+
+        }
+
+
+        private static string GetTransactionsForBlockInString(string blockHex)
+        {
+            var block = Block.Parse(blockHex);
+            var jsonBlock = "{\"tr\":[";
+            var count = block.Transactions.Count;
+            for (var i = 0; i < count; i++)
+            {
+                jsonBlock += "{";
+                jsonBlock += "\"hash\":\"" + block.Transactions[i].GetHash() + "\", \"isColor\":\"" + block.Transactions[i].HasValidColoredMarker() + "\"}";
+                if (i < count - 1)
+                    jsonBlock += ',';
+            }
+            jsonBlock += "]}";       
+            return jsonBlock;
+        }
+
     }
 }
