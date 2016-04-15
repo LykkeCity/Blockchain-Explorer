@@ -1,9 +1,11 @@
 ﻿using AzureRepositories.Bitcoin;
+using AzureRepositories.BitcoinNinja;
 using AzureStorage.Blobs;
 using AzureStorage.Tables;
 using AzureStorage.Tables.Templates.Index;
 using Common.Log;
 using Core.Bitcoin;
+using Core.BitcoinNinja;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureRepositories
@@ -20,6 +22,7 @@ namespace AzureRepositories
             services.AddInstance<IInputsRepository>(new InputsRepository(new AzureTableStorage<InputEntity>(connectionString, "Inputs", log)));
             services.AddInstance<IAssetsRepository>(new AssetsRepository(new AzureTableStorage<AssetsEntity>(connectionString, "Assets", log)));
             services.AddInstance<IAssetsOwnersRepository>(new AssetsOwnersRepository(new AzureTableStorage<AssetsOwnersEntity>(connectionString, "AssetsOwners", log), new AzureBlobStorage(connectionString)));
+            services.AddInstance<IBlockNinjaRepository>(new BlockRepository(new AzureTableStorage<BlockNinjaEntity>(connectionString, "BlocksNinja", log), new AzureBlobStorage(connectionString)));
         }
     }
 }

@@ -12,12 +12,14 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
     public class BlockController : Controller
     {
         private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBlockNinjaRepository _blockNinjaRepository;
 
         private const int ItemsOnPage = 20;
 
-        public BlockController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository)
+        public BlockController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository, IBlockNinjaRepository blockNinjaRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
+            _blockNinjaRepository = blockNinjaRepository;
         }
 
         [HttpGet]
@@ -28,11 +30,17 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
                 if (string.IsNullOrEmpty(id))
                     return RedirectToAction("Index", "Home");
 
-                var getBlock = await _bitcoinNinjaReaderRepository.GetTrGetInformationBlockAsync(id);
+                var getBlock = await _blockNinjaRepository.GetBlockDataAsync(id);
 
                 if (getBlock == null)
-                    return View("_NotFound");
+                {
+                     getBlock = await _bitcoinNinjaReaderRepository.GetTrGetInformationBlockAsync(id);
+                    if (getBlock == null)
+                        return View("_NotFound");
 
+                    await _blockNinjaRepository.WriteBlockDataAsync(getBlock);
+                }
+ 
                 var start = ItemsOnPage * page;
 
                 int max;

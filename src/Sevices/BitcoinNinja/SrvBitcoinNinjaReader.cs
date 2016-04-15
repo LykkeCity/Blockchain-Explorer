@@ -74,23 +74,8 @@ namespace Sevices.BitcoinNinja
             var infoBlockApiNinja = await GetBlockAsync(blockHesh);
             var parseBlock = Block.Parse(infoBlockApiNinja.Hex);            
             var trListForBlockJson = GetTransactionsForBlockInString(infoBlockApiNinja.Hex);
-            var trListForBlock = JsonConvert.DeserializeObject<BlockNinjaModel>(trListForBlockJson);
-           
-
-            return new BlockViewNinjaModel
-            {
-                Confirmations = infoBlockApiNinja.Confirmations,
-                Time = infoBlockApiNinja.Time,
-                Height = infoBlockApiNinja.Height,
-                Hash = parseBlock.Header.ToString(),
-                TotalTransactions = parseBlock.Transactions.Count,
-                ListTranasction = trListForBlock.ListTranasction,
-                Difficulty = parseBlock.Header.Bits.Difficulty,
-                MerkleRoot = parseBlock.Header.HashMerkleRoot.ToString(),
-                PreviousBlock = parseBlock.Header.HashPrevBlock.ToString(),
-                Nonce = parseBlock.Header.Nonce
-            };
-
+            var trListForBlock = JsonConvert.DeserializeObject<TransactionParseModel>(trListForBlockJson);
+            return BlockNinjaEntity.Create(infoBlockApiNinja, parseBlock, trListForBlock);
         }
 
 

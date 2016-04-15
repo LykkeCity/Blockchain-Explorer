@@ -66,16 +66,11 @@ namespace AzureRepositories.Bitcoin
             var rowKey = AssetsOwnersEntity.GenerateRowKey(assetId);
             var partiteonKey = AssetsOwnersEntity.GeneratePartiteonKey();
             var assetData = await _tableStorage.GetDataAsync(partiteonKey, rowKey);
-            if (assetData != null)
-            {
-                var blobAssetData = await _azureBlob.GetAsync(BlobContainer, assetData.BlobId);
-                if (blobAssetData != null)
-                {
-                    string jsonStr = Encoding.UTF8.GetString(blobAssetData.ToBytes());
-                    return JsonConvert.DeserializeObject<DeserializeAssetsOwner>(jsonStr);
-                }
-            }
-            return null;
+            if (assetData == null) return null;
+            var blobAssetData = await _azureBlob.GetAsync(BlobContainer, assetData.BlobId);
+            if (blobAssetData == null) return null;
+            var jsonStr = Encoding.UTF8.GetString(blobAssetData.ToBytes());
+            return JsonConvert.DeserializeObject<DeserializeAssetsOwner>(jsonStr);
         }
 
         public async Task WriteAssetsOwnersDataAsync(IAssetsOwners assetOwnersData)
