@@ -8,7 +8,6 @@
 <ul class="list-group">
 
     <li class="list-group-item clearfix intput-output-group-list-item">
-
         <div class="intput-output-group">
             <div class="icon dspl-icon">
                 <span class="currency-icon thumbnail">
@@ -18,18 +17,33 @@
                 </span>
             </div>
             <div class="inputs">
-                @foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == null))
+                @if (Model.Transaction.IsCoinBase)
                 {
                     <div class="address-item ">
                         <div class="amount">
-                            - @BitcoinUtils.SatoshiToBtc(input.Value)
+                           
                         </div>
                         <div class="address">
-                            <i class="fa fa-lg fa-arrow-left displ-fa"></i>
-                            @input.Address
+                           <b>Mined coins</b>
                         </div>
                     </div>
                 }
+                else
+                {
+                    foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == null))
+                     {
+                         <div class="address-item ">
+                             <div class="amount">
+                                 - @BitcoinUtils.SatoshiToBtc(input.Value)
+                             </div>
+                             <div class="address">
+                                 <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                                 @input.Address
+                             </div>
+                         </div>
+                     }
+                }
+                
             </div>
 
             <div class="outputs">

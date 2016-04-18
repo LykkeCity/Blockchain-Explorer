@@ -3,7 +3,7 @@
 @using Core
 @model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
 @{
-    var divclass = Model.Transaction.AssetData.Any() ? "colortr" : "";
+    var divclass = Model.Transaction.IsColor ? "colortr" : "";
 }
 
 

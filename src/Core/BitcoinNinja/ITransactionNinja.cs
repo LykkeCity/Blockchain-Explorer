@@ -12,6 +12,8 @@ namespace Core.BitcoinNinja
         InputsNinja[] Inputs { get; }
         OutputsNinja[] Outputs { get; }
         long Fees { get;  }
+        bool IsCoinBase { get;  }
+        bool IsColor { get;  }
         IEnumerable<InputsNinja> AssetData { get; }
     }
 

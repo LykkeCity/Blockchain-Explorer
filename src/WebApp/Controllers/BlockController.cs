@@ -34,7 +34,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
                 if (getBlock == null)
                 {
-                     getBlock = await _bitcoinNinjaReaderRepository.GetTrGetInformationBlockAsync(id);
+                     getBlock = await _bitcoinNinjaReaderRepository.GetInformationBlockAsync(id);
                     if (getBlock == null)
                         return View("_NotFound");
 
@@ -65,7 +65,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
                 return View(model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("_NotFound");
             }
@@ -73,23 +73,5 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
         }
 
-      /*  public async Task<ActionResult> TransactionDetails(string id)
-        {
-            var trnsct = await _transactionRepository.GetTransaction(id);
-
-            var outputs = await _outputsRepository.GetAsync(trnsct.Blockhash);
-            var inputs = await _inputsRepository.GetAsync(trnsct.Blockhash);
-
-
-            var model = new TransactionModel
-            {
-               Inputs = inputs.Where(itm => itm.Txid == trnsct.Txid),
-               Outputs = outputs.Where(itm => itm.Txid == trnsct.Txid)
-            };
-
-
-
-            return View(model);
-        }*/
     }
 }

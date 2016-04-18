@@ -7,6 +7,8 @@ using Core.BitcoinNinja;
 using Common;
 using Common.Json;
 using NBitcoin;
+using NBitcoin.BitcoinCore;
+using NBitcoin.BouncyCastle.Utilities.Encoders;
 using NBitcoin.OpenAsset;
 using Newtonsoft.Json;
 using Sevices.BitcoinNinja.Models;
@@ -33,14 +35,14 @@ namespace Sevices.BitcoinNinja
 
         private async Task<string> InvokeMethod(string url)
         {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
             webRequest.Method = "GET";
 
-            using (WebResponse webResponse = await webRequest.GetResponseAsync())
+            using (var webResponse = await webRequest.GetResponseAsync())
             {
-                using (Stream str = webResponse.GetResponseStream())
+                using (var str = webResponse.GetResponseStream())
                 {
-                    using (StreamReader sr = new StreamReader(str))
+                    using (var sr = new StreamReader(str))
                     {
                         return await sr.ReadToEndAsync();
                     }
@@ -50,8 +52,16 @@ namespace Sevices.BitcoinNinja
 
         public async Task<ITransactionNinja> GetTransactionAsync(string txId)
         {
-            var json = await InvokeMethod(Url+"transactions/"+ txId + "?colored=true");
+
+            var json = await InvokeMethod(Url + "transactions/" + txId);
             var result = JsonConvert.DeserializeObject<TransactionNinjaModel>(json);
+            var transactionInfo = Transaction.Parse(result.Hex);
+            result.IsCoinBase = transactionInfo.IsCoinBase;
+            result.IsColor = transactionInfo.HasValidColoredMarker();
+            if (!result.IsColor) return result;
+            json = await InvokeMethod(Url + "transactions/" + txId + "?colored=true");
+            result = JsonConvert.DeserializeObject<TransactionNinjaModel>(json);
+           
             return result;
         }
 
@@ -69,7 +79,7 @@ namespace Sevices.BitcoinNinja
             return result;
         }
 
-        public async Task<IBlockNinja> GetTrGetInformationBlockAsync(string blockHesh)
+        public async Task<IBlockNinja> GetInformationBlockAsync(string blockHesh)
         {
             var infoBlockApiNinja = await GetBlockAsync(blockHesh);
             var parseBlock = Block.Parse(infoBlockApiNinja.Hex);            
