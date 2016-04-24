@@ -170,7 +170,7 @@
         margin-bottom: 60px;
     }
 
-   .colortr {
+    .colortr {
         background-image: url('../images/line.png');
         background-repeat: repeat-x;
         border: none;
@@ -186,21 +186,24 @@
     }
 
     .logo {
-         padding-left: 10px;
+        padding-left: 10px;
     }
 
     .notFound {
         width: 100%;
     }
-    
+
     .footer {
         position: relative !important;
     }
-    .coin-stakes{}
-    .coin-stakes small{
-    display: block;
-    margin: 15px 0px;
-}
+
+    .coin-stakes {
+    }
+
+        .coin-stakes small {
+            display: block;
+            margin: 15px 0px;
+        }
 
 
     .owners-expand-column {
@@ -210,8 +213,21 @@
         white-space: inherit;
         max-width: 1px;
     }
- 
 
+
+    .asset-list .details-left {
+        margin: 0;
+    }
+
+    .list-group-item .details-left {
+        margin-left: 0px;
+    }
+
+        .list-group-item .details-left .list-group-item-text {
+            overflow: inherit;
+            text-overflow: clip;
+            white-space: pre-line;
+        }
 }
 
 @media (min-width: 768px) and (max-width: 990px) { 

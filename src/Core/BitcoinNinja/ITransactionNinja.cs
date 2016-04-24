@@ -9,15 +9,17 @@ namespace Core.BitcoinNinja
     {
         string TxId { get; }
         BlockNinja Block { get; }
-        InputsNinja[] Inputs { get; }
-        OutputsNinja[] Outputs { get; }
+        DeserializeInputsNinja[] DeserializeInputs { get; }
+        DeserializeOutputsNinja[] DeserializeOutputs { get; }
         long Fees { get;  }
         bool IsCoinBase { get;  }
         bool IsColor { get;  }
-        IEnumerable<InputsNinja> AssetData { get; }
+        IDictionary<string, Asset> Asset { get; } 
     }
 
-    public class BlockNinja 
+
+
+    public class BlockNinja
     {
         [JsonProperty("blockId")]
         public string Hash { get; set; }
@@ -29,37 +31,8 @@ namespace Core.BitcoinNinja
         public long Confirmations { get; set; }
     }
 
-    public class InputsNinja : IInputsNinja
-    {
-        [JsonProperty("address")]
-        public string Address { get; set; }
-        [JsonProperty("transactionId")]
-        public string TxId { get; set; }
-        [JsonProperty("index")]
-        public int Index { get; set; }
-        [JsonProperty("value")]
-        public long Value { get; set; }
-        [JsonProperty("assetId")]
-        public string AssetId { get; set; }
-        [JsonProperty("quantity")]
-        public long Quantity { get; set; }
-    }
+  
 
-    public class OutputsNinja : IOutputsNinja
-    {
-        [JsonProperty("address")]
-        public string Address { get; set; }
-        [JsonProperty("transactionId")]
-        public string TxId { get; set; }
-        [JsonProperty("index")]
-        public int Index { get; set; }
-        [JsonProperty("value")]
-        public long Value { get; set; }
-        [JsonProperty("assetId")]
-        public string AssetId { get; set; }
-        [JsonProperty("quantity")]
-        public long Quantity { get; set; }
-    }
 
 
 

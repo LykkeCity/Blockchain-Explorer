@@ -201,7 +201,7 @@ table td.no-wrap, table th.no-wrap {
     padding-left: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 .transaction-details .intput-output-group .address-item .address {
     overflow: hidden;
@@ -383,7 +383,7 @@ a{color: #5FC2FA}
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #fff;
-     border: none;
+    border: none;
 }
 
 .hd-bt {
@@ -468,4 +468,44 @@ a{color: #5FC2FA}
     text-decoration: blink;
     padding: 8px 0px;
     margin: 0 auto;
+}
+
+.list-group-item .details-left {
+    margin-left: 70px;
+}
+
+.list-group-item .list-group-item-heading {
+    line-height: 20.9px;
+    font-weight: normal;
+    margin-bottom: 0;
+    padding: 4px 0 10px;
+}
+.list-group-item .details-left .list-group-item-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-group-item-text {
+    margin-bottom: 0;
+    line-height: 1.3;
+}
+
+.currency-icon .thumbnail{}
+.asset-list .details-right {
+
+}
+.details-right .amount{    text-align: right;
+    margin-top: 10px;
+}
+.asset-list .details-left{}
+.asset-list .list-group-item-heading{}
+.asset-list .list-group-item-text .text-muted{}
+.asset-list{
+    border-bottom: 1px solid #BFBFBF;
+    margin-bottom: 1px;
+}
+
+.list-group-item  .balance-left {
+    float: left;    margin-left: 23px;
 }

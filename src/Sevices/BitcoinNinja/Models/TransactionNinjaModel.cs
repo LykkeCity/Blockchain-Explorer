@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace Sevices.BitcoinNinja.Models
         [JsonProperty("block")]
         public BlockNinja Block { get; set; }
         [JsonProperty("spentCoins")]
-        public InputsNinja[] Inputs { get; set; }
+        public DeserializeInputsNinja[] DeserializeInputs { get; set; }
         [JsonProperty("receivedCoins")]
-        public OutputsNinja[] Outputs { get; set; }
+        public DeserializeOutputsNinja[] DeserializeOutputs { get; set; }
         [JsonProperty("transaction")]
         public string Hex { get; set; }
         [JsonProperty("fees")]
@@ -26,11 +27,42 @@ namespace Sevices.BitcoinNinja.Models
 
         public bool IsCoinBase { get; set; }
         public bool IsColor { get; set; }
+        public IDictionary<string, Asset> Asset => Create(DeserializeInputs, DeserializeOutputs);
 
-        public IEnumerable<InputsNinja> AssetData
+
+        private IDictionary<string, Asset> Create(DeserializeInputsNinja[] inputs, DeserializeOutputsNinja[] outputs)
         {
-            get { return Inputs.Where(itm => itm.AssetId != null); }
+            var asset = new Dictionary<string, Asset>();
+
+            if (inputs.Any(itm => itm.AssetId != null))
+            {
+                foreach (var itm in inputs.Where(itm => itm.AssetId != null))
+                {
+                    asset.Add(itm.AssetId,
+                        new Asset
+                        {
+                            AssetDataInput = inputs.Where(itmm => itmm.AssetId == itm.AssetId),
+                            AssetDataOutput = outputs.Where(itmm => itmm.AssetId == itm.AssetId)
+                        });
+                }
+            }
+            else
+            {
+                foreach (var itm in outputs.Where(itm => itm.AssetId != null))
+                {
+                    asset.Add(itm.AssetId,
+                        new Asset
+                        {
+                            AssetDataInput = inputs.Where(itmm => itmm.AssetId == itm.AssetId),
+                            AssetDataOutput = outputs.Where(itmm => itmm.AssetId == itm.AssetId)
+                        });
+                }
+            }
+
+            return asset;
         }
+
+    }
     }
 
-}
+

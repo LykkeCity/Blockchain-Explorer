@@ -36,13 +36,13 @@
                         <tr>
                             <td class="no-wrap">Assets transacted</td>
                             <td class="expand-column">
-                                @if (!Model.Transaction.AssetData.Any())
+                                @if (!Model.Transaction.Asset.Any())
                                 {
                                     <span>None</span>
                                 }
                                 else
                                 {
-                                    @Model.Transaction.AssetData.Count()
+                                    @Model.Transaction.Asset.Count()
                                 }
                             </td>
                         </tr>

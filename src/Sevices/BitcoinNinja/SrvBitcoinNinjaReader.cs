@@ -61,7 +61,7 @@ namespace Sevices.BitcoinNinja
             if (!result.IsColor) return result;
             json = await InvokeMethod(Url + "transactions/" + txId + "?colored=true");
             result = JsonConvert.DeserializeObject<TransactionNinjaModel>(json);
-           
+            result.IsColor = transactionInfo.HasValidColoredMarker();
             return result;
         }
 

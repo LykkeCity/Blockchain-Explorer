@@ -4,6 +4,7 @@
 
 @using System.Threading.Tasks
 @using Core
+@using Core.BitcoinNinja
 @model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
 <ul class="list-group">
 
@@ -30,15 +31,23 @@
                 }
                 else
                 {
-                    foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == null))
-                     {
-                         <div class="address-item ">
+
+                    foreach (var input in Model.Transaction.DeserializeInputs.Where(input => input.AssetId == null))
+                    {
+                        <div class="address-item ">
                              <div class="amount">
                                  - @BitcoinUtils.SatoshiToBtc(input.Value)
                              </div>
                              <div class="address">
                                  <i class="fa fa-lg fa-arrow-left displ-fa"></i>
-                                 @input.Address
+                                 @if (input.Address == null)
+                                 {
+                                     <span>Unrecognized address</span>
+                                 }
+                                 else
+                                 {
+                                     @input.Address
+                                 }
                              </div>
                          </div>
                      }
@@ -52,14 +61,21 @@
                         <img src="~/images/arrow.png" />
                     </div>
 
-                    @foreach (var output in Model.Transaction.Outputs.Where(output => output.Address != null && output.AssetId == null))
+                    @foreach (var output in Model.Transaction.DeserializeOutputs.Where(output => output.AssetId == null))
                     {
                         <div class="address-item ">
                             <div class="amount">
                                 @BitcoinUtils.SatoshiToBtc(output.Value)
                             </div>
                             <div class="address">
-                                @output.Address
+                                @if (output.Address == null)
+                                {
+                                    <span>Unrecognized address</span>
+                                }
+                                else
+                                {
+                                    @output.Address
+                                }
                             </div>
                         </div>
                     }
@@ -76,12 +92,12 @@
         </div>
 
     </li>
-    @if (Model.Transaction.AssetData.Any())
+    @if (Model.Transaction.IsColor)
     {
-        foreach (var assetDataItm in Model.Transaction.AssetData)
+        foreach (var assetDataItm in Model.Transaction.Asset)
         {
             <li class="list-group-item clearfix intput-output-group-list-item assetBlock">
-                <div class="assetid">@assetDataItm.AssetId</div>
+                <div class="assetid">@assetDataItm.Key</div>
                 <div class="intput-output-group">
                     <div class="icon dspl-icon">
                         <span class="currency-icon thumbnail">
@@ -91,15 +107,48 @@
                         </span>
                     </div>
                     <div class="inputs">
-                        @foreach (var input in Model.Transaction.Inputs.Where(input => input.AssetId == assetDataItm.AssetId))
+                        @if (assetDataItm.Value.AssetDataInput.Any())
+                        {
+                            foreach (var input in assetDataItm.Value.AssetDataInput)
+                            {
+                                <div class="address-item ">
+                                    <div class="amount">
+                                        @{
+                                            var l = assetDataItm.Value.AssetDataOutput.Where(itm => itm.AssetId == input.AssetId).Select(itm => itm.Quantity - input.Quantity);
+                                            var def = l.ToArray()[0];
+                                            if (def != 0)
+                                            {
+                                                Write(def.ToString("N0"));
+                                            }
+                                            else
+                                            {
+                                                Write("- "+input.Quantity.ToString("N0"));
+                                            }
+
+                                        }                                   
+                                    </div>
+                                    <div class="address">
+                                        <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                                        @if (input.Address == null)
+                                        {
+                                            <span>Unrecognized address</span>
+                                        }
+                                        else
+                                        {
+                                            @input.Address
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
                         {
                             <div class="address-item ">
                                 <div class="amount">
-                                    - @BitcoinUtils.SatoshiToBtc(input.Value)
+
                                 </div>
                                 <div class="address">
-                                    <i class="fa fa-lg fa-arrow-left displ-fa"></i>
-                                    @input.Address
+                                        <b>Issued assets</b>
                                 </div>
                             </div>
                         }
@@ -111,16 +160,27 @@
                                 <img src="~/images/arrow.png" />
                             </div>
 
-                            @foreach (var output in Model.Transaction.Outputs.Where(output => output.Address != null && output.AssetId == assetDataItm.AssetId))
+                            @foreach (var output in assetDataItm.Value.AssetDataOutput)
                             {
-                                <div class="address-item ">
-                                    <div class="amount">
-                                        @BitcoinUtils.SatoshiToBtc(output.Value)
+                                if (assetDataItm.Value.AssetDataInput.Any(itm => itm.Address != output.Address))
+                                {
+                                    <div class="address-item ">
+                                        <div class="amount">
+                                            @output.Quantity.ToString("N0")
+                                        </div>
+                                        <div class="address">
+                                            @if (output.Address == null)
+                                            {
+                                                <span>Unrecognized address</span>
+                                            }
+                                            else
+                                            {
+                                                @output.Address
+                                            }
+                                        </div>
                                     </div>
-                                    <div class="address">
-                                        @output.Address
-                                    </div>
-                                </div>
+                                }
+
                             }
                         </div>
                     </div>
