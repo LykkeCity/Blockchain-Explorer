@@ -8,7 +8,7 @@ namespace Core.BitcoinNinja
     public interface ITransactionNinja
     {
         string TxId { get; }
-        BlockNinja Block { get; }
+        BlockInfoForDetalisTransactionNinja Block { get; }
         DeserializeInputsNinja[] DeserializeInputs { get; }
         DeserializeOutputsNinja[] DeserializeOutputs { get; }
         long Fees { get;  }
@@ -19,19 +19,15 @@ namespace Core.BitcoinNinja
 
 
 
-    public class BlockNinja
+    public class ListTranasction
     {
-        [JsonProperty("blockId")]
-        public string Hash { get; set; }
-        [JsonProperty("height")]
-        public long Height { get; set; }
-        [JsonProperty("blockTime")]
-        public DateTime Time { get; set; }
-        [JsonProperty("confirmations")]
-        public long Confirmations { get; set; }
+        [JsonProperty("hash")]
+        public string TxId { get; set; }
+        [JsonProperty("isColor")]
+        public bool IsColor { get; set; }
     }
 
-  
+
 
 
 

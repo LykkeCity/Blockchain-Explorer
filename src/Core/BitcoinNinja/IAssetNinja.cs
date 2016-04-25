@@ -3,11 +3,21 @@ using Newtonsoft.Json;
 
 namespace Core.BitcoinNinja
 {
-    public interface IAssetDetailsNinja
+    public interface IAssetDetailForAddressNinja
     {
         string AssetId { get; }
         long Quantity { get; }
-        string Address { get; }
+        long Received { get; }
+    }
+
+    public class AssetsForAddress : IAssetDetailForAddressNinja
+    {
+        [JsonProperty("asset")]
+        public string AssetId { get; set; }
+        [JsonProperty("quantity")]
+        public long Quantity { get; set; }
+        [JsonProperty("received")]
+        public long Received { get; set; }
     }
 
     public interface IAsset

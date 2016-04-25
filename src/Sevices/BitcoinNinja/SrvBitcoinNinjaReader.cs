@@ -72,12 +72,40 @@ namespace Sevices.BitcoinNinja
             return result;
         }
 
+        public async Task<IAddressNinja> GetAddressAsync(string address)
+        {
+            
+            var whatisit = await InvokeMethod(Url + "/whatisit/" + address);
+            var result = JsonConvert.DeserializeObject<AddressNinjaModel>(whatisit);
+            var summary = await AddressSummary(address);
+            result.Address = address;
+            result.Balance = summary.Confirmed.Balance;
+            result.TotalTransactions = summary.Confirmed.TotalTransactions;
+            result.Assets = summary.Confirmed.Assets;
+            var trList = await AddressListTransaction(address);
+            result.ListTranasctions = trList.Operations.Select(itm => itm.TxId).ToArray();
+            return result;
+        }
+
+        private async Task<AddressSummaryConfirmed> AddressSummary(string address)
+        {
+            var summary = await InvokeMethod(Url + "/balances/" + address + "/summary?colored=true");
+            return  JsonConvert.DeserializeObject<AddressSummaryConfirmed>(summary);
+        }
+
+        private async Task<AddressListTransaction> AddressListTransaction(string address)
+        {
+            var trList = await InvokeMethod(Url + "/balances/" + address);
+            return JsonConvert.DeserializeObject<AddressListTransaction>(trList);
+        }
+
         private async Task<BlockNinjaModel> GetBlockAsync(string block)
         {
             var json = await InvokeMethod(Url + "blocks/" + block);
             var result = JsonConvert.DeserializeObject<BlockNinjaModel>(json);
             return result;
         }
+
 
         public async Task<IBlockNinja> GetInformationBlockAsync(string blockHesh)
         {

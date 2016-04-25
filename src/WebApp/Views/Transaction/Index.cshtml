@@ -3,6 +3,7 @@
 @using Core
 @model BitcoinChainExplorerForAspNet5.Models.TransactionViewModel
 @{
+    ViewData["Title"] = "Transaction - " + Model.Transaction.TxId;
     var divclass = Model.Transaction.IsColor ? "colortr" : "";
 }
 

@@ -46,7 +46,7 @@
                                  }
                                  else
                                  {
-                                     @input.Address
+                                    <a asp-action="index" asp-controller="address" asp-route-id="@input.Address">@input.Address</a>
                                  }
                              </div>
                          </div>
@@ -74,7 +74,7 @@
                                 }
                                 else
                                 {
-                                    @output.Address
+                                    <a asp-action="index" asp-controller="address" asp-route-id="@output.Address">@output.Address</a>
                                 }
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                             }
                                             else
                                             {
-                                                Write("- "+input.Quantity.ToString("N0"));
+                                                Write("-  "+input.Quantity.ToString("N0"));
                                             }
 
                                         }                                   
@@ -135,7 +135,7 @@
                                         }
                                         else
                                         {
-                                            @input.Address
+                                            <a asp-action="index" asp-controller="address" asp-route-id="@input.Address">@input.Address</a>
                                         }
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                                             }
                                             else
                                             {
-                                                @output.Address
+                                                <a asp-action="index" asp-controller="address" asp-route-id="@output.Address">@output.Address</a>
                                             }
                                         </div>
                                     </div>

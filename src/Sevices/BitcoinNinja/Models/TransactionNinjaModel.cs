@@ -15,7 +15,7 @@ namespace Sevices.BitcoinNinja.Models
         [JsonProperty("transactionId")]
         public string TxId { get; set; }
         [JsonProperty("block")]
-        public BlockNinja Block { get; set; }
+        public BlockInfoForDetalisTransactionNinja Block { get; set; }
         [JsonProperty("spentCoins")]
         public DeserializeInputsNinja[] DeserializeInputs { get; set; }
         [JsonProperty("receivedCoins")]

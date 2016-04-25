@@ -7,5 +7,6 @@ namespace Core.BitcoinNinja
         Task<ITransactionNinja> GetTransactionAsync(string txId);
         Task<IBlockNinja> GetInformationBlockAsync(string blockHesh);
         Task<IlastBlockNinja> GetLastBlockAsync();
+        Task<IAddressNinja> GetAddressAsync(string address);
     }
 }

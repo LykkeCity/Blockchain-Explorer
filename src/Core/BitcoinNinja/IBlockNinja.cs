@@ -24,12 +24,16 @@ namespace Core.BitcoinNinja
         string Hash { get; }
     }
 
-    public class ListTranasction
+    public class BlockInfoForDetalisTransactionNinja
     {
-        [JsonProperty("hash")]
-        public string TxId { get; set; }
-        [JsonProperty("isColor")]
-        public bool IsColor { get; set; }
+        [JsonProperty("blockId")]
+        public string Hash { get; set; }
+        [JsonProperty("height")]
+        public long Height { get; set; }
+        [JsonProperty("blockTime")]
+        public DateTime Time { get; set; }
+        [JsonProperty("confirmations")]
+        public long Confirmations { get; set; }
     }
 
     public class DeserializeBlockNinja : IBlockNinja
