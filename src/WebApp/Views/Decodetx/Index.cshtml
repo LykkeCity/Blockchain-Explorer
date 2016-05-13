@@ -1,0 +1,43 @@
+﻿@using System.Threading.Tasks
+@using Common.Json
+@using Newtonsoft.Json
+
+@model BitcoinChainExplorerForAspNet5.Models.DecodetxViewModel
+@{
+    ViewData["Title"] = " Decode Raw Transaction";
+    Layout = "~/Views/Shared/_LayoutInner.cshtml";
+}
+
+
+<div class="container pd">
+    <header class="top-nav-links clearfix">
+        <h1>Decoded Transaction</h1>
+    </header>
+
+    <div class="page-content">
+        <div class="row">
+            @if (Model != null)
+            {
+                if (Model.Decodetx == null)
+                {
+                    <pre><code>Please enter a valid transaction hex</code></pre>
+                }
+                else
+                {
+                    <pre><code>@JsonConvert.SerializeObject(Model.Decodetx, Formatting.Indented)</code></pre>
+                }
+
+            }
+            
+            <form method="post" action="">
+                <div class="form-group">
+                    <label class="" for="dtx">Transaction Hex*</label>
+                    <textarea class="form-control" id="dtx" name="Hex" rows="10"></textarea>
+                </div>
+                <span class="input-group-btn">
+                    <button style="height: 65px; color: #fff; margin: 0 auto;" class="btn btn-2" type="submit">Decode Another Transaction</button>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>

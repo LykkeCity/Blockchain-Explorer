@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AzureRepositories;
+﻿using AzureRepositories;
 using Common.Log;
 using Core.Bitcoin;
 using Core.BitcoinNinja;

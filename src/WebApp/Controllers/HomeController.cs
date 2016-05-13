@@ -21,6 +21,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
         public async Task<ActionResult> Index()
         {
+
             var model = new IndexModel
             {
                 LastBlock = await _bitcoinNinjaReaderRepository.GetLastBlockAsync()
@@ -28,6 +29,9 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
             return View(model);
         }
+
+
+       
 
     }
 }

@@ -122,7 +122,7 @@
                                             }
                                             else
                                             {
-                                                Write("-  "+input.Quantity.ToString("N0"));
+                                                Write(" - " + input.Quantity.ToString("N0"));
                                             }
 
                                         }                                   
@@ -160,27 +160,23 @@
                                 <img src="~/images/arrow.png" />
                             </div>
 
-                            @foreach (var output in assetDataItm.Value.AssetDataOutput)
+                            @foreach (var output in assetDataItm.Value.AssetDataOutput.Where(output => !assetDataItm.Value.AssetDataInput.Any()  || assetDataItm.Value.AssetDataInput.Any(itm => itm.Address != output.Address)))
                             {
-                                if (assetDataItm.Value.AssetDataInput.Any(itm => itm.Address != output.Address))
-                                {
-                                    <div class="address-item ">
-                                        <div class="amount">
-                                            @output.Quantity.ToString("N0")
-                                        </div>
-                                        <div class="address">
-                                            @if (output.Address == null)
-                                            {
-                                                <span>Unrecognized address</span>
-                                            }
-                                            else
-                                            {
-                                                <a asp-action="index" asp-controller="address" asp-route-id="@output.Address">@output.Address</a>
-                                            }
-                                        </div>
+                                <div class="address-item ">
+                                    <div class="amount">
+                                        @output.Quantity.ToString("N0")
                                     </div>
-                                }
-
+                                    <div class="address">
+                                        @if (output.Address == null)
+                                        {
+                                            <span>Unrecognized address</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="index" asp-controller="address" asp-route-id="@output.Address">@output.Address</a>
+                                        }
+                                    </div>
+                                </div>
                             }
                         </div>
                     </div>

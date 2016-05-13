@@ -27,9 +27,14 @@
                             <td class="expand-column">@Model.Transaction.TxId</td>
                         </tr>
                         <tr>
-                            <td class="no-wrap">Date</td>
-                            <td class="expand-column">@($"{Model.Transaction.Block.Time:F}")</td>
-                        </tr>
+                            @if (Model.Transaction.Block != null)
+                            {
+                                <td class="no-wrap">Date</td>
+                                <td class="expand-column">
+                                    @($"{Model.Transaction.Block.Time:F}")
+                                </td>
+                            }
+                           </tr>
                         <tr>
                             <td class="no-wrap">Fee paid</td>
                             <td class="expand-column">@BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees) BTC</td>
@@ -51,9 +56,10 @@
                     </table>
                 </div>
                 <div class="col-md-5">
+                    @if (Model.Transaction.Block != null) { 
                     <div class="title-bl">Transaction confirmed</div>
-                    <table class="table table-rounded ">
-                        <tbody>
+                        <table class="table table-rounded ">
+                            <tbody>
                             <tr>
                                 <td class="no-wrap">Confirmations</td>
                                 <td class="expand-column">@Model.Transaction.Block.Confirmations confirmations</td>
@@ -70,8 +76,9 @@
                                 <td class="no-wrap">Height</td>
                                 <td class="expand-column">@Model.Transaction.Block.Height</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
             <div class="panel panel-default transaction-details tr-de-inner detal-tr-inner @divclass">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -63,6 +64,22 @@ namespace Sevices.BitcoinNinja
             result = JsonConvert.DeserializeObject<TransactionNinjaModel>(json);
             result.IsColor = transactionInfo.HasValidColoredMarker();
             return result;
+        }
+
+        public async Task<IDecodetxNinja> DecodeTransactionAsync(string txHex)
+        {
+            try
+            {
+                var parseHexTr = Transaction.Parse(txHex);
+                var json = await InvokeMethod(Url + "transactions/" + parseHexTr.GetHash());
+                return JsonConvert.DeserializeObject<DecodetxModel>(json);
+            }
+            catch (Exception)
+            {              
+               return null;
+            }
+            
+
         }
 
         public async Task<IlastBlockNinja> GetLastBlockAsync()
