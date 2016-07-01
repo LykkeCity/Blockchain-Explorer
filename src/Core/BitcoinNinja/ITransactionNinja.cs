@@ -14,12 +14,13 @@ namespace Core.BitcoinNinja
         long Fees { get;  }
         bool IsCoinBase { get;  }
         bool IsColor { get;  }
-        IDictionary<string, Asset> Asset { get; } 
+        IDictionary<string, Asset> Asset { get; }
+        long TotalOut { get; }
     }
 
 
 
-    public class ListTranasction
+    public class ListTransaction
     {
         [JsonProperty("hash")]
         public string TxId { get; set; }

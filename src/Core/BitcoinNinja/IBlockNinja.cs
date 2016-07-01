@@ -15,10 +15,10 @@ namespace Core.BitcoinNinja
         long Nonce { get; }
         int TotalTransactions { get; }
         string PreviousBlock { get; }
-        ListTranasction[] ListTranasction { get;}
+        ListTransaction[] ListTranasction { get;}
     }
 
-    public interface IlastBlockNinja
+    public interface ILastBlockNinja
     {
         long Height { get; }
         string Hash { get; }
@@ -30,7 +30,7 @@ namespace Core.BitcoinNinja
         public string Hash { get; set; }
         [JsonProperty("height")]
         public long Height { get; set; }
-        [JsonProperty("blockTime")]
+        [JsonProperty("blockTime")] 
         public DateTime Time { get; set; }
         [JsonProperty("confirmations")]
         public long Confirmations { get; set; }
@@ -47,7 +47,7 @@ namespace Core.BitcoinNinja
         public long Nonce { get; set; }
         public int TotalTransactions { get; set; }
         public string PreviousBlock { get; set; }
-        public ListTranasction[] ListTranasction { get; set; }
+        public ListTransaction[] ListTranasction { get; set; }
     }
 
     public interface IBlockNinjaRepository

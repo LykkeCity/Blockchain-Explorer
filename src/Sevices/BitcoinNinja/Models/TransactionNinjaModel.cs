@@ -29,6 +29,14 @@ namespace Sevices.BitcoinNinja.Models
         public bool IsColor { get; set; }
         public IDictionary<string, Asset> Asset => Create(DeserializeInputs, DeserializeOutputs);
 
+        public long TotalOut
+        {
+            get
+            {
+                return DeserializeOutputs.Sum(x => x.Value);
+            }
+        }
+
 
         private IDictionary<string, Asset> Create(DeserializeInputsNinja[] inputs, DeserializeOutputsNinja[] outputs)
         {
@@ -62,7 +70,27 @@ namespace Sevices.BitcoinNinja.Models
             return asset;
         }
 
+        public void CleanupOutputs()
+        {
+            var map = new Dictionary<string, DeserializeOutputsNinja>();
+
+            foreach (var i in DeserializeOutputs)
+            {
+                if (i.Value == 0 || String.IsNullOrWhiteSpace(i.Address)) continue;
+
+                if(map.ContainsKey(i.Address))
+                {
+                    map[i.Address].Value += i.Value;
+                }
+                else
+                {
+                    map.Add(i.Address, i);
+                }
+            }
+
+            DeserializeOutputs = map.Select(x => x.Value).ToArray();
+        }
     }
-    }
+}
 
 

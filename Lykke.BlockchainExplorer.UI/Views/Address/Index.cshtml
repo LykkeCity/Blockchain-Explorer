@@ -1,0 +1,206 @@
+﻿@using Lykke.BlockchainExplorer.Core.Utils;
+@model Lykke.BlockchainExplorer.UI.Models.AddressModel
+@{
+    ViewData["Title"] = "Address - " + Model.Address.Hash;
+    Layout = "~/Views/Shared/_LayoutInner.cshtml";
+}
+
+<div class="container">
+    <header class="top-nav-links clearfix">
+        <h1>Address</h1>
+    </header>
+
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-rounded ">
+                    <tbody>
+                        <tr>
+                            <td class="no-wrap">Address</td>
+                            <td class="expand-column">@Model.Address.Hash</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Total transactions</td>
+                            <td class="expand-column">@Model.Address.TotalTransactions</td>
+                        </tr>
+                        @if (Model.Address.UncoloredAddress != null)
+                        {
+                            <tr>
+                                <td class="no-wrap">Legacy address</td>
+                                <td class="expand-column"><a href="@Url.Action("Index", "Address", new { id = Model.Address.UncoloredAddress })">@Model.Address.UncoloredAddress</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="list-group-item clearfix section-header">
+                        <h3 class="panel-title">Balance</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item clearfix">
+                            <span class="currency-icon thumbnail dspl-icon">
+                                <span class="bg-warning">
+                                    <i class="fa fa-btc"></i>
+                                </span>
+                            </span>
+                            <div class="details-left balance-left">
+                                <h4 class="list-group-item-heading">Bitcoin</h4>
+                                <p class="list-group-item-text text-muted"></p>
+                            </div>
+                            <div class="details-right text-right">
+                                <h4 class="list-group-item-heading">@BitcoinUtils.SatoshiToBtc(Model.Address.Balance) BTC</h4>
+                            </div> 
+                        </li>
+
+                        @if (Model.Address.Assets != null && Model.Address.Assets.Count != 0)
+                        {
+                            <li class="list-group-item clearfix section-header">
+                                <h3 class="panel-title">Assets</h3>
+                            </li>
+                            foreach (var itm in Model.Address.Assets)
+                            {
+                                <li class="list-group-item clearfix asset-list"> 
+                                    <div class="currency-icon thumbnail dspl-icon">
+                                        <span class="bg-primary">
+                                            <i class="fa fa-money"></i>
+                                        </span>
+                                    </div>
+                                    <div class="details-left">
+                                        <p class="list-group-item-text text-muted"> Asset ID: @itm.Id</p>
+                                    </div>
+                                    <div class="details-right">
+                                        <h4 class="list-group-item-heading amount">@itm.Quantity.ToString("N0")</h4>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+        <h3 class="transactions-header">Transactions</h3>
+        @for (var i = Model.Start; i < Model.Max; i++)
+        { 
+            var tr = Model.Address.Transactions[i];
+
+            <div class="panel panel-success transaction-details">
+                <div class="panel-heading row">
+                    <h3 class="panel-title address-transaction-header col-sm-7">
+                        <a href="@Url.Action("Index", "Transaction", new { id = tr.TransactionId })">@tr.TransactionId</a>
+                    </h3>
+                    <div class="col-sm-3 text-center tr-date"></div>
+                    <div class="confirmation-label col-sm-2 text-center">
+                        <span>confirmed</span>
+                    </div>
+                </div>
+
+                <ul class="list-group">
+
+                    <li class="list-group-item clearfix section-header">
+                        <h3 class="panel-title hd-bt">Bitcoin</h3>
+                    </li>
+
+                    <li class="list-group-item clearfix intput-output-group-list-item">
+
+                        <div class="intput-output-group show-details">
+                            <div class="icon dspl-icon">
+                                <span class="currency-icon thumbnail">
+                                    <span class="bg-warning">
+                                        <i class="fa fa-btc"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="show-details-load" data-tx="@tr.TransactionId"><a href="">show details</a></div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+
+    <div class="footer-push">
+        <div class="text-center">
+            <ul class="pagination">
+
+                @if (Model.Count < 10)
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            <li class="active"><a>@(i + 1)</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Index", "Address", new { id = Model.Address.Hash, page = i })">@(i + 1)</a></li>
+                        }
+                    }
+                }
+                else
+                {
+                    if (5 < Model.CurrentPage)
+                    {
+                        <li><a href="@Url.Action("Index", "Address", new { id = Model.Address.Hash, page = 0 })">1</a></li>
+                        if (6 < Model.CurrentPage)
+                        {
+                            <li class="disabled"><span>…</span></li>
+                        }
+
+                    }
+
+
+                    if (Model.CurrentPage + 10 > Model.Count)
+                    {
+                        for (int i = Model.CurrentPage - 5; i < Model.Count; i++)
+                        {
+
+                            if (i == Model.CurrentPage)
+                            {
+                                <li class="active"><a>@(i + 1)</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("Index", "Address", new { id = Model.Address.Hash, page = i })">@(i + 1)</a></li>
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        for (int i = Model.CurrentPage < 5 ? 0 : Model.CurrentPage - 5; i < Model.CurrentPage + 5; i++)
+                        {
+
+                            if (i == Model.CurrentPage)
+                            {
+                                <li class="active"><a>@(i + 1)</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("Index", "Address", new { id = Model.Address.Hash, page = i })">@(i + 1)</a></li>
+                            }
+                        }
+                    }
+
+
+                    if (Model.CurrentPage + 9 < Model.Count)
+                    {
+                        <li class="disabled"><span>…</span></li>
+                        <li><a href="@Url.Action("Index", "Address", new { id = Model.Address.Hash, page = Model.Count - 1 })">@Model.Count</a></li>
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+
+</div>

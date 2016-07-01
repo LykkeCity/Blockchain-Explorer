@@ -47,7 +47,7 @@ namespace AzureRepositories.Bitcoin
 
 
     }
-
+     
     public class TransactionRepository:ITransactionRepository
     {
         private readonly IAzureTableStorage<TransactionEntity> _tableStorage;

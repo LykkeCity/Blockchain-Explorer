@@ -1,0 +1,179 @@
+﻿@using System;
+@model Lykke.BlockchainExplorer.UI.Models.BlockModel
+
+@{
+    ViewData["Title"] = "Block - " + Model.Block.Hash;
+    Layout = "~/Views/Shared/_LayoutInner.cshtml";
+}
+
+<div class="container pd">
+    <header class="top-nav-links clearfix">
+        <h1>Block @Model.Block.Height</h1>
+        <div class="block-h-top">@Model.Block.Hash</div>
+    </header>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-rounded ">
+                    <tbody>
+                        <tr>
+                            <td class="no-wrap">Hash</td>
+                            <td class="expand-column">@Model.Block.Hash</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Date</td>
+                            <td class="expand-column">@($"{Model.Block.Time:F}")</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Height</td>
+                            <td class="expand-column">@Model.Block.Height</td>
+                        </tr> 
+                        <tr>
+                            <td class="no-wrap">Total transactions</td>
+                            <td class="expand-column">@Model.Block.TotalTransactions</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Previous block</td>
+                            <td class="expand-column"><a href="@Url.Action("Index", "Block", new { id = Model.Block.PreviousBlock })">@Model.Block.PreviousBlock</a></td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Difficulty</td>
+                            <td class="expand-column">@($"{Model.Block.Difficulty:N}")</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Merkle Root</td>
+                            <td class="expand-column">@Model.Block.MerkleRoot</td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">Nonce</td>
+                            <td class="expand-column">@Model.Block.Nonce</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr>
+        <h3 class="transactions-header">@Model.Block.TotalTransactions Transactions</h3>
+
+        @for (var i = Model.Start; i < Model.Max; i++)
+        {
+            var divclass = Model.Block.Transactions[i].IsColor ? "colortr" : "";
+            <br>
+            <div class="panel panel-success transaction-details @divclass">
+                <div class="panel-heading row">
+                    <h3 class="panel-title address-transaction-header col-sm-7">
+                        <a href="@Url.Action("Index", "Transaction", new { id = Model.Block.Transactions[i].TransactionId })">@Model.Block.Transactions[i].TransactionId</a>
+                    </h3>
+                    <div class="col-sm-3 text-center tr-date"></div>
+                    <div class="confirmation-label col-sm-2 text-center">
+                        <span>confirmed</span>
+                    </div>
+                </div> 
+
+                <ul class="list-group">
+
+                    <li class="list-group-item clearfix section-header">
+                        <h3 class="panel-title hd-bt">Bitcoin</h3>
+                    </li>
+
+                    <li class="list-group-item clearfix intput-output-group-list-item">
+
+                        <div class="intput-output-group show-details">
+                            <div class="icon dspl-icon">
+                                <span class="currency-icon thumbnail">
+                                    <span class="bg-warning">
+                                        <i class="fa fa-btc"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="show-details-load" data-tx="@Model.Block.Transactions[i].TransactionId"><a href="">show details</a></div>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+        }
+
+    </div>
+    <div class="footer-push">
+        <div class="text-center">
+            <ul class="pagination">
+
+                @if (Model.Count < 10)
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            <li class="active"><a>@(i + 1)</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Index", "Block", new { id = Model.Block.Hash, page = i })">@(i + 1)</a></li>
+                        }
+                    }
+                }
+                else
+                {
+                    if (5 < Model.CurrentPage)
+                    {
+                        <li><a href="@Url.Action("Index", "Block", new { id = Model.Block.Hash, page = 0 })">1</a></li>
+                        if (6 < Model.CurrentPage)
+                        {
+                            <li class="disabled"><span>…</span></li>
+                        }
+
+                    }
+
+
+                    if (Model.CurrentPage + 10 > Model.Count)
+                    {
+                        for (int i = Model.CurrentPage - 5; i < Model.Count; i++)
+                        {
+
+                            if (i == Model.CurrentPage)
+                            {
+                                <li class="active"><a>@(i + 1)</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("Index", "Block", new { id = Model.Block.Hash, page = i })">@(i + 1)</a></li>
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        for (int i = Model.CurrentPage < 5 ? 0 : Model.CurrentPage - 5; i < Model.CurrentPage + 5; i++)
+                        {
+
+                            if (i == Model.CurrentPage)
+                            {
+                                <li class="active"><a>@(i + 1)</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("Index", "Block", new { id = Model.Block.Hash, page = i })">@(i + 1)</a></li>
+                            }
+
+
+                        }
+                    } 
+
+
+                    if (Model.CurrentPage + 9 < Model.Count)
+                    {
+                        <li class="disabled"><span>…</span></li>
+                        <li><a href="@Url.Action("Index", "Block", new { id = Model.Block.Hash, page = Model.Count - 1 })">@Model.Count</a></li>
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>

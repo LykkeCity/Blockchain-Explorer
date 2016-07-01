@@ -40,8 +40,6 @@ namespace AzureRepositories.Bitcoin
 
             return result;
         }
-
-
     }
 
     public class OutputsRepository: IOutputsRepository

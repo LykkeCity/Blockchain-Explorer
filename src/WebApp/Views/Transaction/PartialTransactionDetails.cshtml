@@ -81,7 +81,7 @@
                     }
                     <div class="address-item div-fees">
                         <div class="amount">
-                            @BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees)
+                            @(String.Format("{0:0.00######}", BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees)))
                         </div>
                         <div class="address">
                             Fees

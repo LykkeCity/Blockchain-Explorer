@@ -34,7 +34,7 @@ namespace AzureRepositories.BitcoinNinja
             {
                 BlobId = blobId,
                 RowKey = GenerateRowKey(hash),
-                PartitionKey = GeneratePartiteonKey()
+                PartitionKey = GeneratePartiteonKey() 
             };
         }
 

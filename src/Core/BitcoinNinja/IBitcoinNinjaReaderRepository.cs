@@ -2,11 +2,11 @@
 
 namespace Core.BitcoinNinja
 {
-    public interface IBitcoinNinjaReaderRepository
+    public interface IBitcoinNinjaClient
     {
-        Task<ITransactionNinja> GetTransactionAsync(string txId);
+        Task<ITransactionNinja> GetTransactionAsync(string txId, bool colored = false);
         Task<IBlockNinja> GetInformationBlockAsync(string blockHesh);
-        Task<IlastBlockNinja> GetLastBlockAsync();
+        Task<ILastBlockNinja> GetLastBlockAsync();
         Task<IAddressNinja> GetAddressAsync(string address);
         Task<IDecodetxNinja> DecodeTransactionAsync(string txHex);
     }

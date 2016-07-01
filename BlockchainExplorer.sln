@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{66519C09-AAE1-4163-9483-B59910ACFE03}"
 EndProject
@@ -29,6 +29,34 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TcpSockets", "CommonLibrary\src\TcpSockets\TcpSockets.xproj", "{C6FB529F-78FC-4F06-B629-9D82F3C958B0}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ScriptInvoker", "src\ScriptInvoker\ScriptInvoker.xproj", "{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinRpc", "src\Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinRpc\Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinRpc.csproj", "{C1143B6D-AD37-4219-BAE5-914250A96C26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider.Coinprism", "src\Lykke.BlockChainExplorer.BlockchainDataProvider.Coinprism\Lykke.BlockchainExplorer.BlockchainDataProvider.Coinprism.csproj", "{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinNinja", "src\Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinNinja\Lykke.BlockchainExplorer.BlockchainDataProvider.BitcoinNinja.csproj", "{9EA281E3-DEE3-436B-9151-07F6E1EB58DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider", "src\Lykke.BlockchainExplorer.BlockchainDataProvider\Lykke.BlockchainExplorer.BlockchainDataProvider.csproj", "{47CABA51-E770-44E9-AB1C-FAF5A3AECED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.Repository", "src\Lykke.BlockchainExplorer.Repository\Lykke.BlockchainExplorer.Repository.csproj", "{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.Services", "src\Lykke.BlockchainExplorer.Services\Lykke.BlockchainExplorer.Services.csproj", "{64914A31-60F7-4797-9DEC-0BB189FFCC72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.ServiceLocator", "src\Lykke.BlockchainExplorer.ServiceLocator\Lykke.BlockchainExplorer.ServiceLocator.csproj", "{1B824FA6-D25F-4C00-9094-ED8BD0FFB894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.Core", "src\Lykke.BlockchainExplorer.Core\Lykke.BlockchainExplorer.Core.csproj", "{3DEDDF9C-1943-41A6-AA24-74F026457BEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.Settings", "src\Lykke.BlockchainExplorer.Settings\Lykke.BlockchainExplorer.Settings.csproj", "{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.UI", "Lykke.BlockchainExplorer.UI\Lykke.BlockchainExplorer.UI.csproj", "{5148F8CD-71E7-456E-8BE0-C86251BEB66B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BitcoinBridge", "Lykke.BlockchainExplorer.BitcoinBridge\Lykke.BlockchainExplorer.BitcoinBridge.csproj", "{091DFB79-EC6C-411E-97F0-888C970104FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider.MetadataProvider", "Lykke.BlockchainExplorer.BlockchainDataProvider.MetadataProvider\Lykke.BlockchainExplorer.BlockchainDataProvider.MetadataProvider.csproj", "{FCDB3FAC-36D5-41C0-9A35-A978444C21BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBitcoin.Indexer", "src\NBitcoin.Indexer\NBitcoin.Indexer.csproj", "{210DE089-5D25-4967-A7A4-95B98A823DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.BlockchainExplorer.BlockchainDataProvider.NBitcoinIndexer", "Lykke.BlockchainExplorer.BlockchainDataProvider.NBitcoinIndexer\Lykke.BlockchainExplorer.BlockchainDataProvider.NBitcoinIndexer.csproj", "{AFDB7418-2F60-4619-B0D4-E08163DA5FC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +100,62 @@ Global
 		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1143B6D-AD37-4219-BAE5-914250A96C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1143B6D-AD37-4219-BAE5-914250A96C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1143B6D-AD37-4219-BAE5-914250A96C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1143B6D-AD37-4219-BAE5-914250A96C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA281E3-DEE3-436B-9151-07F6E1EB58DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA281E3-DEE3-436B-9151-07F6E1EB58DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA281E3-DEE3-436B-9151-07F6E1EB58DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA281E3-DEE3-436B-9151-07F6E1EB58DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47CABA51-E770-44E9-AB1C-FAF5A3AECED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47CABA51-E770-44E9-AB1C-FAF5A3AECED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47CABA51-E770-44E9-AB1C-FAF5A3AECED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47CABA51-E770-44E9-AB1C-FAF5A3AECED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64914A31-60F7-4797-9DEC-0BB189FFCC72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64914A31-60F7-4797-9DEC-0BB189FFCC72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64914A31-60F7-4797-9DEC-0BB189FFCC72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64914A31-60F7-4797-9DEC-0BB189FFCC72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B824FA6-D25F-4C00-9094-ED8BD0FFB894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B824FA6-D25F-4C00-9094-ED8BD0FFB894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B824FA6-D25F-4C00-9094-ED8BD0FFB894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B824FA6-D25F-4C00-9094-ED8BD0FFB894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DEDDF9C-1943-41A6-AA24-74F026457BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DEDDF9C-1943-41A6-AA24-74F026457BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DEDDF9C-1943-41A6-AA24-74F026457BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DEDDF9C-1943-41A6-AA24-74F026457BEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5148F8CD-71E7-456E-8BE0-C86251BEB66B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5148F8CD-71E7-456E-8BE0-C86251BEB66B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5148F8CD-71E7-456E-8BE0-C86251BEB66B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5148F8CD-71E7-456E-8BE0-C86251BEB66B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091DFB79-EC6C-411E-97F0-888C970104FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091DFB79-EC6C-411E-97F0-888C970104FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091DFB79-EC6C-411E-97F0-888C970104FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091DFB79-EC6C-411E-97F0-888C970104FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCDB3FAC-36D5-41C0-9A35-A978444C21BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCDB3FAC-36D5-41C0-9A35-A978444C21BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCDB3FAC-36D5-41C0-9A35-A978444C21BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCDB3FAC-36D5-41C0-9A35-A978444C21BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210DE089-5D25-4967-A7A4-95B98A823DA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210DE089-5D25-4967-A7A4-95B98A823DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210DE089-5D25-4967-A7A4-95B98A823DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210DE089-5D25-4967-A7A4-95B98A823DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDB7418-2F60-4619-B0D4-E08163DA5FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDB7418-2F60-4619-B0D4-E08163DA5FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDB7418-2F60-4619-B0D4-E08163DA5FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDB7418-2F60-4619-B0D4-E08163DA5FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +170,19 @@ Global
 		{3491E13C-488E-4906-B35B-8AD8932C3618} = {25802B51-3BFA-45AB-8188-8E663678E4AE}
 		{C6FB529F-78FC-4F06-B629-9D82F3C958B0} = {25802B51-3BFA-45AB-8188-8E663678E4AE}
 		{62E201C8-0EBF-4773-82A3-98BDFA95AE5F} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{C1143B6D-AD37-4219-BAE5-914250A96C26} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{001D9CBA-42FD-4ABD-9970-9E067DD5F8B1} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{9EA281E3-DEE3-436B-9151-07F6E1EB58DB} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{47CABA51-E770-44E9-AB1C-FAF5A3AECED3} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{09D4BCC9-E2EA-40F7-98D3-AE57C72E649E} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{64914A31-60F7-4797-9DEC-0BB189FFCC72} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{1B824FA6-D25F-4C00-9094-ED8BD0FFB894} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{3DEDDF9C-1943-41A6-AA24-74F026457BEB} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{C1629C1A-877B-4EA3-B392-92C6AB4E6FFD} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{5148F8CD-71E7-456E-8BE0-C86251BEB66B} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{091DFB79-EC6C-411E-97F0-888C970104FC} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{FCDB3FAC-36D5-41C0-9A35-A978444C21BE} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{210DE089-5D25-4967-A7A4-95B98A823DA2} = {66519C09-AAE1-4163-9483-B59910ACFE03}
+		{AFDB7418-2F60-4619-B0D4-E08163DA5FC1} = {66519C09-AAE1-4163-9483-B59910ACFE03}
 	EndGlobalSection
 EndGlobal

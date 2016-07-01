@@ -5,7 +5,7 @@ namespace BitcoinBridge
 {
     public class AppSettings
     {
-        public SrvBitcoinRpcSettings BitcoinRpcSettings { get; set; }
+        public BitcoinRpcSettings BitcoinRpcSettings { get; set; }
         public string ConnectionString { get; set; }
         public string FirstHashBlock { get; set; }
     }
@@ -18,6 +18,5 @@ namespace BitcoinBridge
             var json = File.ReadAllText("settings.json");
             return Newtonsoft.Json.JsonConvert.DeserializeObject<AppSettings>(json);
         }
-
     }
-}
+} 

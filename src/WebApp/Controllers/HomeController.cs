@@ -11,17 +11,16 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBitcoinNinjaClient _bitcoinNinjaReaderRepository;
 
 
-        public HomeController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository)
+        public HomeController(IBitcoinNinjaClient bitcoinNinjaReaderRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
         }
 
         public async Task<ActionResult> Index()
         {
-
             var model = new IndexModel
             {
                 LastBlock = await _bitcoinNinjaReaderRepository.GetLastBlockAsync()

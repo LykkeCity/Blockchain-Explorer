@@ -31,13 +31,11 @@ namespace AzureRepositories.Bitcoin
                 Txid = input.Txid,
                 Value = input.Value,
                 RowKey = GenerateRowKey(input.Addresses),
-                PartitionKey = GeneratePartiteonKey(input.BlockHash) 
+                PartitionKey = GeneratePartiteonKey(input.BlockHash)
             };
 
             return result;
         }
-
-
     }
 
     public class InputsRepository : IInputsRepository

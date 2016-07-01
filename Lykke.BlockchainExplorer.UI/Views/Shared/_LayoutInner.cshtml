@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("HeadPartial")
+</head>
+<body>
+
+    <div class="navbar navbar-inverse " role="navigation">
+        <div class="container">
+            @Html.Partial("PartialLogoAndNavbarHeader")
+            <div class="collapse navbar-collapse">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="search-header">
+                            <form method="get" action="@Url.Action("Index", "Search")" class="form-inline">
+                                <div class="input-group search">
+                                    <input type="text" class="form-control input-sm search-top" placeholder="Search" name="id">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-s-top" type="submit"></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Partial("PartialMenu")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="copyr">© Lykke @DateTime.Now.Year - Blockchain Explorer v@(Product.Version)</div>
+            <div class="pull-right f-social">
+                <a href=""><img src="~/Content/images/fb.png" /></a>
+                <a href=""><img src="~/Content/images/tw.png" /></a>
+            </div>
+        </div>
+    </footer>
+    @Html.Partial("BottomPartial")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

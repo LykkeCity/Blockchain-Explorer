@@ -1,0 +1,12 @@
+﻿@model Lykke.BlockchainExplorer.Core.Domain.Asset
+@{
+    Layout = null;
+}
+<tr>
+    <td>@Model.Name</td>
+    <td>@Model.Issuer</td>
+    <td>@Model.Description</td>
+    <td>
+        <a href="@Url.Action("Index", "Asset", new { id = Model.Id })">@Model.Id</a>
+    </td>
+</tr>

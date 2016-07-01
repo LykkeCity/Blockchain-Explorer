@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 namespace AzureRepositories.Bitcoin
 {
-    public class LastImportendBlockHashEntyti : TableEntity, ILastBlock
+    public class LastImportedBlockHashEntity : TableEntity, ILastBlock
     {
         public string Hash { get; set; }
         public long Height { get; set; }
@@ -20,9 +20,9 @@ namespace AzureRepositories.Bitcoin
             return "LastBlockid";
         }
 
-        public static LastImportendBlockHashEntyti Create(string hash, long height)
+        public static LastImportedBlockHashEntity Create(string hash, long height)
         {
-            return new LastImportendBlockHashEntyti
+            return new LastImportedBlockHashEntity
             {
                 RowKey = GenerateRowKey(),
                 PartitionKey = GeneratePartitionKey(),
@@ -30,22 +30,22 @@ namespace AzureRepositories.Bitcoin
                 Height = height
             };
         }
-
+         
     }
 
     public class LastImportendBlockHash : ILastImportendBlockHash
     {
-        private readonly IAzureTableStorage<LastImportendBlockHashEntyti> _tableStorage;
+        private readonly IAzureTableStorage<LastImportedBlockHashEntity> _tableStorage;
 
-        public LastImportendBlockHash(IAzureTableStorage<LastImportendBlockHashEntyti> tableStorage)
+        public LastImportendBlockHash(IAzureTableStorage<LastImportedBlockHashEntity> tableStorage)
         {
             _tableStorage = tableStorage;
         }
 
         public async Task<string> GetAsync()
         {
-            var partitionKey = LastImportendBlockHashEntyti.GeneratePartitionKey();
-            var rowKey = LastImportendBlockHashEntyti.GenerateRowKey();
+            var partitionKey = LastImportedBlockHashEntity.GeneratePartitionKey();
+            var rowKey = LastImportedBlockHashEntity.GenerateRowKey();
 
             var entity = await _tableStorage.GetDataAsync(partitionKey, rowKey);
 
@@ -55,14 +55,14 @@ namespace AzureRepositories.Bitcoin
 
         public Task SetAsync(string hash, long height)
         {
-            var newEntity = LastImportendBlockHashEntyti.Create(hash, height);
+            var newEntity = LastImportedBlockHashEntity.Create(hash, height);
             return _tableStorage.InsertOrReplaceAsync(newEntity);
         }
 
         public async Task<ILastBlock> GetLastBlock()
         {
-            var partitionKey = LastImportendBlockHashEntyti.GeneratePartitionKey();
-            var rowKey = LastImportendBlockHashEntyti.GenerateRowKey();
+            var partitionKey = LastImportedBlockHashEntity.GeneratePartitionKey();
+            var rowKey = LastImportedBlockHashEntity.GenerateRowKey();
 
             var entity = await _tableStorage.GetDataAsync(partitionKey, rowKey);
 

@@ -1,0 +1,95 @@
+﻿@using Lykke.BlockchainExplorer.Core.Utils;
+@model Lykke.BlockchainExplorer.UI.Models.TransactionModel
+@{
+    ViewData["Title"] = "Transaction - " + Model.Transaction.TransactionId;
+    var divclass = Model.Transaction.IsColor ? "colortr" : "";
+}
+
+<div class="container">
+    <header class="top-nav-links clearfix">
+        <h1>Transaction</h1>
+        <div class="tr-h-top">@Model.Transaction.TransactionId</div>
+    </header>
+
+    <div class="page-content">
+        <div class="transaction-explorer">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="title-bl">Advanced details</div>
+                    <table class="table table-rounded ">
+                        <tbody>
+                            <tr>
+                                <td class="no-wrap">Hash</td>
+                                <td class="expand-column">@Model.Transaction.TransactionId</td>
+                            </tr>
+                            <tr>
+                                @if (Model.Transaction.Block != null)
+                                {
+                                    <td class="no-wrap">Date</td>
+                                    <td class="expand-column">
+                                        @($"{Model.Transaction.Block.Time:F}")
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Fee paid</td>
+                                <td class="expand-column">@BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees) BTC</td>
+                            </tr>
+                            <tr>
+                                <td class="no-wrap">Assets transacted</td>
+                                <td class="expand-column">
+                                    <a href="~/Views/Transaction/Index.cshtml">~/Views/Transaction/Index.cshtml</a>
+                                    @if (!Model.Transaction.Assets.Any())
+                                    {
+                                        <span>None</span>
+                                    }
+                                    else
+                                    {
+                                        @Model.Transaction.Assets.Count()
+                                    }
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-5">
+                    @if (Model.Transaction.Block != null)
+                    {
+                        <div class="title-bl">Transaction confirmed</div>
+                        <table class="table table-rounded ">
+                            <tbody>
+                                <tr>
+                                    <td class="no-wrap">Confirmations</td>
+                                    <td class="expand-column">@Model.Transaction.Block.Confirmations confirmations</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-wrap">Time</td>
+                                    <td class="expand-column">@($"{Model.Transaction.Block.Time:F}")</td>
+                                </tr>
+                                <tr> 
+                                    <td class="no-wrap">Block</td>
+                                    <td class="expand-column"><a href="@Url.Action("Index", "Block", new { id = Model.Transaction.Block.Hash })">@Model.Transaction.Block.Hash</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="no-wrap">Height</td>
+                                    <td class="expand-column">@Model.Transaction.Block.Height</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="panel panel-default transaction-details tr-de-inner detal-tr-inner @divclass">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bitcoin</h3>
+                </div>
+
+                @Html.Partial("PartialTransactionDetails", Model)
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="footer-push"></div>
+</div>

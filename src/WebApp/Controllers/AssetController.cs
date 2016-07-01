@@ -15,10 +15,10 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
     public class AssetController : Controller
     {
         private readonly IAssetsRepository _assetsRepository;
-        private readonly ISrvCoinprismReader _coinprismReader;
+        private readonly ICoinprismClient _coinprismReader;
         private readonly IAssetsOwnersRepository _assetsOwnersRepository;
 
-        public AssetController(IAssetsRepository assetsRepository, ISrvCoinprismReader coinprismReader, IAssetsOwnersRepository assetsOwnersRepository)
+        public AssetController(IAssetsRepository assetsRepository, ICoinprismClient coinprismReader, IAssetsOwnersRepository assetsOwnersRepository)
         {
             _assetsRepository = assetsRepository;
             _coinprismReader = coinprismReader;
@@ -33,7 +33,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             {
                 assetData = await _coinprismReader.GetAssetDataAsync(id);
                 await _assetsRepository.WriteAssetsDataAsync(assetData);
-            }
+            } 
 
             var model = new AssetsViewModel
             {
@@ -71,7 +71,5 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 
             return View(model);
         }
-
-
     }
 }

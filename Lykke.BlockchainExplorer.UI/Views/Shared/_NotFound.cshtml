@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutInner.cshtml";
+}
+
+<div class="container">
+    <div class="page-content">
+        <div class="text-center notFound">
+            <a href="@Url.Action("Index", "Home")"><img src="/Content/images/404.png"></a>
+        </div>
+        <div class="text-center">
+            This content has been moved or is no longer available.<br>
+            If you have any other problem contact ous support:.<br>
+            <a href="mailto:support@lykkex.com">support@lykkex.com</a>
+        </div>
+        <div class="goback">
+            <a href="@Url.Action("Index", "Home")" class="btn-2 ">Go back</a>
+        </div>
+
+    </div>
+    <div class="footer-push"></div>
+</div>

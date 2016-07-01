@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Core Class Library",
   "authors": [ "Arkadiy" ],
@@ -22,7 +22,7 @@
     "System.Runtime": "4.0.21-*",
     "System.Threading": "4.0.11-*",
     "System.Security.Cryptography.Algorithms": "4.0.0-*",
-    "Newtonsoft.Json": "8.0.2",
+    "Newtonsoft.Json": "8.0.3",
     "System.Text.RegularExpressions": "4.0.11-*",
     "System.Reflection": "4.1.0-*"
   }

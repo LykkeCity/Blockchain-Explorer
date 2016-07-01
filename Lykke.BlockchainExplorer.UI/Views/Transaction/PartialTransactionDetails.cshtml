@@ -1,0 +1,187 @@
+﻿@using Lykke.BlockchainExplorer.Core.Utils;
+@model Lykke.BlockchainExplorer.UI.Models.TransactionModel
+@{
+    Layout = null;
+}
+
+<ul class="list-group">
+
+    <li class="list-group-item clearfix intput-output-group-list-item">
+        <div class="intput-output-group">
+            <div class="icon dspl-icon">
+                <span class="currency-icon thumbnail">
+                    <span class="bg-warning">
+                        <i class="fa fa-btc"></i>
+                    </span>
+                </span>
+            </div>
+            <div class="inputs">
+                @if (Model.Transaction.IsCoinBase)
+                {
+                    <div class="address-item ">
+                        <div class="amount">
+
+                        </div>
+                        <div class="address">
+                            <b>Mined coins</b>
+                        </div>
+                    </div> 
+                }
+                else
+                {
+
+                    foreach (var input in Model.Transaction.TransactionIn.Where(input => input.AssetId == null && input.Value != 0))
+                    {
+                        <div class="address-item ">
+                            <div class="amount">
+                                - @BitcoinUtils.SatoshiToBtc(input.Value)
+                            </div>
+                            <div class="address">
+                                <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                                @if (input.Address == null)
+                                {
+                                    <span>Unrecognized address</span>
+                                }
+                                else 
+                                {
+                                    <a href="@Url.Action("Index", "Address", new { id = input.Address })">@input.Address</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+
+            <div class="outputs">
+                <div class="outputs-container">
+                    <div class="center-chevron">
+                        <img src="/Content/images/arrow.png" />
+                    </div>
+
+                    @foreach (var output in Model.Transaction.TransactionsOut.Where(output => output.AssetId == null && output.Value != 0))
+                    {
+                        <div class="address-item ">
+                            <div class="amount">
+                                @BitcoinUtils.SatoshiToBtc(output.Value)
+                            </div>
+                            <div class="address">
+                                @if (output.Address == null)
+                                {
+                                    <span>Unrecognized address</span>
+                                }
+                                else
+                                { 
+                                    <a href="@Url.Action("Index", "Address", new { id = output.Address })">@output.Address</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="address-item div-fees">
+                        <div class="amount">
+                            @(String.Format("{0:0.00######}", BitcoinUtils.SatoshiToBtc(Model.Transaction.Fees)))
+                        </div>
+                        <div class="address">
+                            Fees
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </li>
+    @if (Model.Transaction.IsColor)
+    {
+        foreach (var assetDataItm in Model.Transaction.Assets)
+        {
+            <li class="list-group-item clearfix intput-output-group-list-item assetBlock">
+                <div class="assetid">@assetDataItm.Id</div>
+                <div class="intput-output-group">
+                    <div class="icon dspl-icon">
+                        <span class="currency-icon thumbnail">
+                            <span class="bg-warning">
+                                <i class="fa fa-btc"></i>
+                            </span>
+                        </span>
+                    </div> 
+                    <div class="inputs">
+                        @if (assetDataItm.Input.Any())
+                        {
+                            foreach (var input in assetDataItm.Input)
+                            {
+                                <div class="address-item ">
+                                    <div class="amount">
+                                        @{
+                                            var l = assetDataItm.Output.Where(itm => itm.AssetId == input.AssetId).Select(itm => itm.Quantity - input.Quantity);
+                                            var def = l.FirstOrDefault();
+                                            if (def != 0)
+                                            {
+                                                Write(def.ToString("N0"));
+                                            }
+                                            else
+                                            {
+                                                Write(" - " + input.Quantity.ToString("N0"));
+                                            }
+
+                                        }
+                                        @*@input.Quantity.ToString("N0")*@
+                                    </div>
+                                    <div class="address">
+                                        <i class="fa fa-lg fa-arrow-left displ-fa"></i>
+                                        @if (input.Address == null)
+                                        {
+                                            <span>Unrecognized address</span>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index", "Address", new { id = input.Address })">@input.Address</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="address-item ">
+                                <div class="amount">
+
+                                </div>
+                                <div class="address">
+                                    <b>Issued assets</b>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="outputs">
+                        <div class="outputs-container">
+                            <div class="center-chevron">
+                                <img src="~/Content/images/arrow.png" />
+                            </div>
+
+                            @foreach (var output in assetDataItm.Output.Where(output => !assetDataItm.Output.Any() || assetDataItm.Input.Any(itm => itm.Address != output.Address)))
+                            {
+                                <div class="address-item ">
+                                    <div class="amount">
+                                        @output.Quantity.ToString("N0")
+                                    </div>
+                                    <div class="address">
+                                        @if (output.Address == null)
+                                        {
+                                            <span>Unrecognized address</span>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Index", "Address", new { id = output.Address })">@output.Address</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        }
+
+    }
+</ul>

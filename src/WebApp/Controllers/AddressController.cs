@@ -11,9 +11,9 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 {
     public class AddressController : Controller
     {
-        private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBitcoinNinjaClient _bitcoinNinjaReaderRepository;
 
-        public AddressController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository)
+        public AddressController(IBitcoinNinjaClient bitcoinNinjaReaderRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
         }
@@ -32,7 +32,7 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
                 };
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return View("_NotFound");

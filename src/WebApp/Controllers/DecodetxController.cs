@@ -13,9 +13,9 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 {
     public class DecodetxController : Controller
     {
-        private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBitcoinNinjaClient _bitcoinNinjaReaderRepository;
 
-        public DecodetxController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository)
+        public DecodetxController(IBitcoinNinjaClient bitcoinNinjaReaderRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
         }
@@ -32,11 +32,11 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
         {
             if (string.IsNullOrEmpty(hex))
                 return View();
-
-            var model = new DecodetxViewModel
+             
+            var model = new DecodetxViewModel 
             {
                 Decodetx = await _bitcoinNinjaReaderRepository.DecodeTransactionAsync(hex)
-            };
+            }; 
 
             return View(model);
         }

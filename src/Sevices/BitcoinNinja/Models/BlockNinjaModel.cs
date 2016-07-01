@@ -2,6 +2,7 @@
 using Core.BitcoinNinja;
 using NBitcoin;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Sevices.BitcoinNinja.Models
 {
@@ -19,7 +20,7 @@ namespace Sevices.BitcoinNinja.Models
     public class TransactionParseModel
     {
         [JsonProperty("tr")]
-        public ListTranasction[] ListTranasction { get; set; }
+        public ListTransaction[] ListTranasction { get; set; }
     }
 
     public class AdditionalInformation
@@ -34,7 +35,7 @@ namespace Sevices.BitcoinNinja.Models
         public string Hash { get; set; }
     }
 
-    public class LastBlockModel : IlastBlockNinja
+    public class LastBlockModel : ILastBlockNinja
     {
         [JsonProperty("additionalInformation")]
         public AdditionalInformation AdditionalInformation { get; set; }
@@ -54,9 +55,9 @@ namespace Sevices.BitcoinNinja.Models
         public long Nonce { get; set; }
         public int TotalTransactions { get; set; }
         public string PreviousBlock { get; set; }
-        public ListTranasction[] ListTranasction { get; set; }
+        public ListTransaction[] ListTranasction { get; set; }
 
-        public static BlockNinjaEntity Create(BlockNinjaModel infoBlockApiNinja, Block parseBlock, TransactionParseModel trListForBlock)
+        public static BlockNinjaEntity Create(BlockNinjaModel infoBlockApiNinja, Block parseBlock, ListTransaction[] transactionList)
         {
             return new BlockNinjaEntity
             {
@@ -65,7 +66,7 @@ namespace Sevices.BitcoinNinja.Models
                 Height = infoBlockApiNinja.Height,
                 Hash = parseBlock.Header.ToString(),
                 TotalTransactions = parseBlock.Transactions.Count,
-                ListTranasction = trListForBlock.ListTranasction,
+                ListTranasction = transactionList,
                 Difficulty = parseBlock.Header.Bits.Difficulty,
                 MerkleRoot = parseBlock.Header.HashMerkleRoot.ToString(),
                 PreviousBlock = parseBlock.Header.HashPrevBlock.ToString(),

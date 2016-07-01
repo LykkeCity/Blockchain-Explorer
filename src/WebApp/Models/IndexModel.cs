@@ -5,6 +5,6 @@ namespace BitcoinChainExplorerForAspNet5.Models
 {
     public class IndexModel
     {
-        public IlastBlockNinja LastBlock { get; set; }
+        public ILastBlockNinja LastBlock { get; set; }
     }
 }

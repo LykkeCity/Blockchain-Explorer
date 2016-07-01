@@ -1,0 +1,44 @@
+﻿16.05.2016 - 22.15.2016.
+
+- Added application version in footer
+- Aggregated inputs and outputs by address
+- Changed projects output to .NET 4.6 
+- Restructuration of the solution - created new projects
+- Refactoring of the .NET ninja provider
+- Refactoring of the Coinprism provider
+- Refactoring of the Bitcoin RPC provider
+- Unification of all blockchain data providers
+- Refactored Azure repositories, default repository pattern added
+- Removed dependency to outer utils project - moved only needed classes to repository and core projects
+- Added the ServiceLocator project for service resolution with the service locator pattern and Ninject
+- Moved all the contracts, enums and domain classes to core library
+- Implemented settings project
+- Implemented main service layer for business logic
+- Added full application logging to Azure tables
+- Refactoring of the main web project
+- Refactoring the BitcoinBridge project - logic implemented through shared libraries with main project
+
+- Bug with assets quantities, it is not consistent with Coinprism testnet - In progress
+
+22.15.2016. - 02.06.2016.
+
+- Implement Webjob to traverse and import the blockchain using BitcoinNinja
+- Add import tracking info to db record
+- Create the database schema for blockchain data
+- Implement the stored procedures for data access to sql
+- Create an entity framework based repository solution
+- Implement the repositories based on SqlServer
+- Switch the Azure repository implementation with the SqlServer implementation
+- Switch logging to SqlServer
+- Implement caching logic
+- Save block to sql if it doesn't exist
+- Save transaction, it's block, assets and transaction items if transaction doesn't exist
+- Save address if it doesn't exist
+- Update address data if address exists
+- Retrieve assets through repository instead of CoinPrism
+- Implement asset contract fetcher / provider
+- Create asset directory page implemented through local repository
+- Change asset info page to use local repository
+- Get asset metadata through contract url if it doesn't exist localy
+- Change asset owners page to use sql for asset owner calculation
+- Implement search through existing services to use new caching logic

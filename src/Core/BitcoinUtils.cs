@@ -6,5 +6,5 @@
         {
             return (decimal) (satoshi * 0.00000001);
         }
-    }
+    } 
 }

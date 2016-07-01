@@ -1,4 +1,5 @@
-﻿using AzureRepositories;
+﻿using System;
+using AzureRepositories;
 using Common.Log;
 using Core.Bitcoin;
 using Core.BitcoinNinja;
@@ -11,14 +12,12 @@ using Microsoft.Extensions.Logging;
 using Sevices.Bitcoin;
 using Sevices.BitcoinNinja;
 using Sevices.CoinprismApi;
+using Core.Enums;
 
 namespace BitcoinChainExplorerForAspNet5
 {
-
     public class Startup
     {
-
-
         public Startup(IHostingEnvironment env)
         {
             // Set up configuration sources.
@@ -28,11 +27,11 @@ namespace BitcoinChainExplorerForAspNet5
 
             if (env.IsDevelopment())
             {
-
                 builder.AddUserSecrets();
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(developerMode: true);
             }
+
             Configuration = builder.Build();
         }
 
@@ -46,46 +45,46 @@ namespace BitcoinChainExplorerForAspNet5
 
             services.AddMvc();
 
-            var connectString = Configuration.Get<string>("ConnectionString");
-            if (string.IsNullOrEmpty(connectString))
+            var storageConnectionString = Configuration.Get<string>("ConnectionString");
+
+            if (string.IsNullOrWhiteSpace(storageConnectionString))
             {
-                connectString = "UseDevelopmentStorage=true";
+                storageConnectionString = "UseDevelopmentStorage=true";
             }
-            var bitcoinRpcSettings = new SrvBitcoinRpcSettings
+
+            var bitcoinRpcSettings = new BitcoinRpcSettings
             {
-                HostPort = Configuration.Get<string>("RpcHostPort"),
+                Url = new Uri(Configuration.Get<string>("RpcHostPort")),
                 Password = Configuration.Get<string>("RpcPassword"),
                 User = Configuration.Get<string>("RpcUser")
             };
-            services.AddInstance(new SrvBitcoinRpc(bitcoinRpcSettings));
-            services.AddTransient<ISrvRpcReader, SrvRpcReader>();
 
+            services.AddInstance(new BitcoinRpcClient(bitcoinRpcSettings));
 
-            var bitcoinNinjaSettings = new SrvBitcoinNinjaSettings
+            var bitcoinNinjaSettings = new BitcoinNinjaSettings
             {
-                UrlMainNinja = Configuration.Get<string>("UrlMainNinja"),
-                UrlTestNetNinja = Configuration.Get<string>("UrlTestNetNinja"),
-                Network = Configuration.Get<string>("Network")
+                //UrlMain = new Uri(Configuration.Get<string>("UrlMainNinja")),
+                UrlTest = new Uri(Configuration.Get<string>("UrlTestNetNinja")),
+                Network = (Network)Enum.Parse(typeof(Network), Configuration.Get<string>("Network"))
             };
 
-            services.AddInstance<IBitcoinNinjaReaderRepository>(new SrvBitcoinNinjaReader(bitcoinNinjaSettings));
+            services.AddInstance<IBitcoinNinjaClient>(new BitcoinNinjaClient(bitcoinNinjaSettings));
 
             var coniprismApiSettings = new CoinprismApiSettings
             {
-                Network = Configuration.Get<string>("Network"),
-                UrlCoinprismApiTestnet = Configuration.Get<string>("UrlCoinprismApiTestnet"),
-                UrlCoinprismApi = Configuration.Get<string>("UrlCoinprismApi")
+                UrlMain = new Uri(Configuration.Get<string>("UrlCoinprismApi")),
+                UrlTest = new Uri(Configuration.Get<string>("UrlCoinprismApiTestnet")),
+                Network = (Network)Enum.Parse(typeof(Network), Configuration.Get<string>("Network"))
             };
 
-            services.AddInstance<ISrvCoinprismReader>(new SrvCoinprismReader(coniprismApiSettings));
+            services.AddInstance<ICoinprismClient>(new CoinprismClient(coniprismApiSettings));
 
             var log = new LogToConsole();
             services.AddInstance<ILog>(log);
 
-            services.BindAzureRepositories(connectString, log);
+            AppInfo.Version = Configuration.Get<string>("version");
 
-
-
+            services.BindAzureRepositories(storageConnectionString, log);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,10 +110,9 @@ namespace BitcoinChainExplorerForAspNet5
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
-
+             
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                     name: "Block_details",
                     template: "block/{id}",

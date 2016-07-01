@@ -15,7 +15,4 @@ namespace BitcoinChainExplorerForAspNet5.Models
         public long Total { get; set; }
         public IAssets Asset { get; set; }
     }
-
-
-
 }

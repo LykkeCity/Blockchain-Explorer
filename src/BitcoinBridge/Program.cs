@@ -19,27 +19,27 @@ namespace BitcoinBridge
         {
             try
             {
-                var appSettings = AppSettingsReader.ReadSettings();
+                var appSettings = AppSettingsReader.ReadSettings(); 
 
                 IServiceCollection services = new ServiceCollection();
-
+                 
                 var log = new LogToTable(new AzureTableStorage<LogEntity>(appSettings.ConnectionString, "Log", null));
 
                 services.AddInstance<ILog>(log);
                 services.BindAzureRepositories(appSettings.ConnectionString, log);
-                services.AddInstance(new SrvBitcoinRpc(appSettings.BitcoinRpcSettings));
+                services.AddInstance(new BitcoinRpcClient(appSettings.BitcoinRpcSettings));
 
                 var serviceProvider = services.BuildServiceProvider();
                 var start = ActivatorUtilities.CreateInstance<JobsBlockTransfer>(serviceProvider);
                 //var start = ioc.CreateInstance<JobsBlockTransfer>();
                 start.Start(appSettings.FirstHashBlock);
-                Console.WriteLine("Started...");
-                Console.ReadLine();
+                //Console.WriteLine("Started...");
+                //Console.ReadLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.ReadLine();
+                //Console.WriteLine(ex.Message);
+                //Console.ReadLine();
             }
         }
     }

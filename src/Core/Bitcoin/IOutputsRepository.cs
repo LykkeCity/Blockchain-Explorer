@@ -28,5 +28,4 @@ namespace Core.Bitcoin
         Task SaveAsync(IOutput output);
         Task<IEnumerable<IOutput>> GetAsync(string hashBlock);
     }
-
-}
+} 

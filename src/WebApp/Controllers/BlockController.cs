@@ -11,12 +11,12 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 {
     public class BlockController : Controller
     {
-        private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBitcoinNinjaClient _bitcoinNinjaReaderRepository;
         private readonly IBlockNinjaRepository _blockNinjaRepository;
 
         private const int ItemsOnPage = 20;
 
-        public BlockController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository, IBlockNinjaRepository blockNinjaRepository)
+        public BlockController(IBitcoinNinjaClient bitcoinNinjaReaderRepository, IBlockNinjaRepository blockNinjaRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
             _blockNinjaRepository = blockNinjaRepository;
@@ -69,9 +69,6 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             {
                 return View("_NotFound");
             }
-           
-
         }
-
     }
 }

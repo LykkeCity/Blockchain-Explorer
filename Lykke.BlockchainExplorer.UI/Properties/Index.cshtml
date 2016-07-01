@@ -1,0 +1,120 @@
+﻿@model Lykke.BlockchainExplorer.UI.Models.AssetModel
+@{
+    ViewData["Title"] = "Asset - ";
+
+}
+
+<header class="top-nav-links clearfix">
+    <h1>@Model.Asset.Name</h1>
+    <div class="tr-h-top">@Model.Asset.Id</div>
+</header>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="thumbnail">
+            @if (String.IsNullOrEmpty(Model.Asset.ImageUrl))
+            {
+                <img src="/Content/images/placeholder.png" />
+            }
+            else
+            {
+                <img src="@Model.Asset.ImageUrl" alt="">
+            }
+
+        </p>
+        <div class="list-group with-chevrons">
+            <a class="active list-group-item">
+                <i class="fa fa-chevron-right"></i> Information
+            </a>
+            <a class="list-group-item" href="@Url.Action("Owners", "Asset", new { id = Model.Asset.Id })">
+                <i class="fa fa-chevron-right"></i> Coin holders
+            </a>
+        </div>
+    </div> 
+    <div class="col-md-9">
+        <div>
+            <table class="table table-striped table-rounded no-vertical-border">
+                <tbody>
+                    <tr>
+                        <td class="no-wrap">Asset ID</td>
+                        <td class="expand-column">@Model.Asset.Id</td>
+                    </tr>
+                    <tr>
+                        <td class="no-wrap">Ticker</td>
+                        <td class="expand-column">@Model.Asset.NameShort</td>
+                    </tr>
+                    <tr>
+                        <td class="no-wrap">Type</td>
+                        <td class="expand-column">@Model.Asset.Type</td>
+                    </tr>
+                    <tr>
+                        <td class="no-wrap">Issuer</td>
+                        <td class="expand-column">
+
+
+                            @if (Model.Asset.Issuer == null)
+                            {
+                                <span>Unknown issuer</span>
+
+                            }
+                            else
+                            {
+                                <span>
+                                    @{
+                                        var newSrt = Model.Asset.Issuer.Split(',');
+                                        var newStr = newSrt[0].Substring(3);
+                                        Write(newStr.Replace("*", "www")); 
+                                    }
+                                </span>
+
+                                        }
+                            <br>
+                            @if (Model.Asset.VerifiedIssuer)
+                            {
+
+                                <small class="text-muted"><i class="fa fa-check-circle"></i> The authenticity of the issuer has been verified</small>
+                            }
+                            else
+                            {
+                                <small class="text-muted">
+                                    <i class="fa fa-exclamation-circle"></i> The authenticity of the issuer could not be verified
+                                </small> 
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="no-wrap">Divisibility</td>
+                        <td class="expand-column">
+                            @if (Model.Asset.Divisibility == 0)
+                            {
+                                <span>Indivisible</span>
+                            }
+                            else
+                            {
+                                <span>Divisible to @Model.Asset.Divisibility places</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="no-wrap">Asset definition URL</td>
+                        <td class="expand-column">
+                            @Model.Asset.FinalMetadataUrl
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Contract Details</h3>
+            <blockquote class="description-block" style="margin-bottom: 70px;">
+                @if (string.IsNullOrEmpty(Model.Asset.Description))
+                {
+                    <p>No description is available.</p>
+                }
+                else 
+                {
+                    <p>@Model.Asset.Description</p>
+                }
+
+            </blockquote>
+        </div>
+    </div>
+</div>

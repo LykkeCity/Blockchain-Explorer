@@ -10,12 +10,11 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
 {
     public class TransactionController : Controller
     {
-        private readonly IBitcoinNinjaReaderRepository _bitcoinNinjaReaderRepository;
+        private readonly IBitcoinNinjaClient _bitcoinNinjaReaderRepository;
 
-        public TransactionController(IBitcoinNinjaReaderRepository bitcoinNinjaReaderRepository)
+        public TransactionController(IBitcoinNinjaClient bitcoinNinjaReaderRepository)
         {
             _bitcoinNinjaReaderRepository = bitcoinNinjaReaderRepository;
-
         }
 
         [HttpGet("/transaction/{id}")]
@@ -24,14 +23,14 @@ namespace BitcoinChainExplorerForAspNet5.Controllers
             if (string.IsNullOrEmpty(id))
                 return View("_NotFound");
 
-            var transactin = await _bitcoinNinjaReaderRepository.GetTransactionAsync(id);
+            var transaction = await _bitcoinNinjaReaderRepository.GetTransactionAsync(id);
 
-            if (transactin == null )
+            if (transaction == null )
                 return View("_NotFound");
 
             var model = new TransactionViewModel
             {
-                Transaction = transactin
+                Transaction = transaction
             };
             return Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? View("PartialTransactionDetails", model) : View(model);
         }

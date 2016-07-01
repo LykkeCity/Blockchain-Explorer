@@ -1,0 +1,30 @@
+﻿@model Lykke.BlockchainExplorer.UI.Models.AssetDirectoryModel
+@{
+    ViewBag.Title = "AssetDirectory";
+    Layout = "~/Views/Shared/_LayoutInner.cshtml";
+}
+
+<header class="top-nav-links clearfix">
+    <h1>Asset Directory</h1>
+</header>
+
+@if (Model.Assets.Count > 0)
+{
+    <table class="table table-striped table-rounded no-vertical-border" style="padding:25px;">
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Issuer</th>
+                <th>Description</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.EditorFor(x => x.Assets)
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No assets in the directory</h3> 
+}

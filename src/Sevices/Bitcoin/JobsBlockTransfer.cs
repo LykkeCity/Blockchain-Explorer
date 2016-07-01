@@ -15,15 +15,15 @@ namespace Sevices.Bitcoin
 {
     public class JobsBlockTransfer : TimerPeriod
     {
-        private readonly SrvBitcoinRpc _bitcoinRpc;
-    private readonly ILastImportendBlockHash _lastIportendBlockHash;
-    private readonly IBitcoinBlockRepository _bitcoinBlockRepository;
-    private readonly ITransactionRepository _transactionRepository;
-    private readonly IOutputsRepository _outputsRepository;
-    private readonly IInputsRepository _inputsRepository;
-    private readonly ILog _log;
+            private readonly BitcoinRpcClient _bitcoinRpc;
+        private readonly ILastImportendBlockHash _lastImportendBlockHash;
+        private readonly IBitcoinBlockRepository _bitcoinBlockRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        private readonly IOutputsRepository _outputsRepository;
+        private readonly IInputsRepository _inputsRepository;
+        private readonly ILog _log;
 
-        private string _firstBlock = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f";
+            private string _firstBlock = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f";
 
         public void Start(string firsthashblock)
         {
@@ -31,176 +31,156 @@ namespace Sevices.Bitcoin
             base.Start();
         }
 
-        public JobsBlockTransfer(ILog log, SrvBitcoinRpc bitcoinRpc, ILastImportendBlockHash lastIportendBlockHash,
-        IBitcoinBlockRepository bitcoinBlockRepository, ITransactionRepository transactionRepository, IOutputsRepository outputsRepository, IInputsRepository inputsRepository)
-            : base("JobsBlockTransfer", 1, log)
+        public JobsBlockTransfer(ILog log, BitcoinRpcClient bitcoinRpc, ILastImportendBlockHash lastIportendBlockHash,
+            IBitcoinBlockRepository bitcoinBlockRepository, ITransactionRepository transactionRepository, IOutputsRepository outputsRepository, 
+            IInputsRepository inputsRepository) : base("JobsBlockTransfer", 1, log)
         {
-        _bitcoinRpc = bitcoinRpc;
-        _lastIportendBlockHash = lastIportendBlockHash;
-        _bitcoinBlockRepository = bitcoinBlockRepository;
-        _transactionRepository = transactionRepository;
-        _outputsRepository = outputsRepository;
-        _inputsRepository = inputsRepository;
-        _log = log;
-    }
+            _bitcoinRpc = bitcoinRpc;
+            _lastImportendBlockHash = lastIportendBlockHash;
+            _bitcoinBlockRepository = bitcoinBlockRepository;
+            _transactionRepository = transactionRepository;
+            _outputsRepository = outputsRepository;
+            _inputsRepository = inputsRepository;
+            _log = log;
+        }
 
-    private async Task ReadNewBlocksAsync(Func<GetBlockRpcModel, Task> saveTransactions)
-    {
-
-        var hashToImport = await _lastIportendBlockHash.GetAsync();
-        if (string.IsNullOrEmpty(hashToImport))
-            hashToImport = _firstBlock;
-
-        var block = await _bitcoinRpc.GetBlockAsync(hashToImport);
-
-        while (true)
+        private async Task ReadNewBlocksAsync(Func<GetBlockRpcModel, Task> saveTransactions)
         {
-            var newBlock = new BitcoinBlock
+            var hashToImport = await _lastImportendBlockHash.GetAsync();
+            if (string.IsNullOrEmpty(hashToImport))
+                hashToImport = _firstBlock;
+
+            var block = await _bitcoinRpc.GetBlockAsync(hashToImport);
+
+            while (true)
             {
-                Hash = block.Hash,
-                Time = block.GetTime(),
-                Height = block.Height,
-                Merkleroot = block.Merkleroot,
-                Nonce = block.Nonce,
-                Difficulty = block.Difficulty,
-                Previousblockhash = block.Previousblockhash,
-                Nextblockhash = block.Nextblockhash,
-                TotalTransactions = block.Tx.Length
-            };
-            Console.WriteLine("\n block - " + newBlock.Hash + " room block " + newBlock.Height);
-            await _bitcoinBlockRepository.SaveAsync(newBlock);
-            await saveTransactions(block);
-            await _lastIportendBlockHash.SetAsync(block.Hash, block.Height);
-
-            if (block.IsLastBlock())
-            {
-                Console.WriteLine("block - " + newBlock.Hash + " room block " + newBlock.Height);
-                Console.WriteLine("It was the last block.");
-                break;
-            }
-
-
-            block = await _bitcoinRpc.GetBlockAsync(block.Nextblockhash);
- 
-            }
-
-
-    }
-
-    private async Task SaveTransactionToDb(GetBlockRpcModel block)
-    {
-        foreach (var itemTx in block.Tx)
-        {
-
-            try
-            {
-                Console.WriteLine("Transaction - " + itemTx);
-                var transaction = await _bitcoinRpc.GetRawTransactionAsync(itemTx);
-
-                var newTransaction = new Transaction
+                var newBlock = new BitcoinBlock
                 {
-                    Time = transaction.GetTime(),
+                    Hash = block.Hash,
+                    Time = block.GetTime(), 
                     Height = block.Height,
-                    Confirmations = transaction.Confirmations,
-                    Txid = transaction.Txid,
-                    Blockhash = transaction.Blockhash
+                    Merkleroot = block.Merkleroot,
+                    Nonce = block.Nonce,
+                    Difficulty = block.Difficulty,
+                    Previousblockhash = block.Previousblockhash,
+                    Nextblockhash = block.Nextblockhash,
+                    TotalTransactions = block.Tx.Length
                 };
 
-                await _transactionRepository.SaveAsync(newTransaction);
+                //Console.WriteLine("\n block - " + newBlock.Hash + " room block " + newBlock.Height);
+                await _bitcoinBlockRepository.SaveAsync(newBlock);
+                await saveTransactions(block);
+                await _lastImportendBlockHash.SetAsync(block.Hash, block.Height);
 
-                await SaveOutputsToDb(transaction);
-                await SaveInputsDb(transaction);
-                }
-            catch (Exception ex)
-            {
-
-
-
-               /*var webException = ex as WebException;
-
-
-                if (webException != null)
+                if (block.IsLastBlock()) 
                 {
-                        using (var str = webException.Response.GetResponseStream())
-                        {
-                            using (var sr = new StreamReader(str))
-                            {
-                                var response = await sr.ReadToEndAsync();
-
-                                await _log.WriteWarning("JobsBlockTransfer", "SaveTransactionToDbWebException", itemTx, response);
-                            }
-                        }
+                    //Console.WriteLine("block - " + newBlock.Hash + " room block " + newBlock.Height);
+                    //Console.WriteLine("It was the last block.");
+                    break;
+                }
 
 
-
-
-
-                    }*/
-
-                    Console.WriteLine("Error - SaveTransactionToDb");
-                    await _log.WriteError("JobsBlockTransfer", "SaveTransactionToDb", itemTx, ex);
+                block = await _bitcoinRpc.GetBlockAsync(block.Nextblockhash);
             }
-
-
         }
 
-
-    }
-
-    private async Task SaveOutputsToDb(GetRawTransactionPrcModel tx)
-    {
-            
-        foreach (var itmVout in tx.Vout.Where(itm => itm.ScriptPubKey.Addresses != null))
+        private async Task SaveTransactionToDb(GetBlockRpcModel block)
         {
-
-            foreach (var itmAdress in itmVout.ScriptPubKey.Addresses)
+            foreach (var itemTx in block.Tx)
             {
-                Console.WriteLine("--- Output - " + itmAdress);
-                var newOutputs = new Output
+                try
                 {
-                    Time = tx.GetTime(),
-                    Txid = tx.Txid,
-                    Value = itmVout.Value,
-                    Addresses = itmAdress,
-                    BlockHash = tx.Blockhash
-                };
+                    //Console.WriteLine("Transaction - " + itemTx);
+                    var transaction = await _bitcoinRpc.GetRawTransactionAsync(itemTx);
 
-                await _outputsRepository.SaveAsync(newOutputs);
-                }
-            }
-
-    }
-
-    private async Task SaveInputsDb(GetRawTransactionPrcModel tx)
-    {
-        foreach (var itmVin in tx.Vin.Where(itm => itm.Txid != null))
-        {
-            var addressVin = await _bitcoinRpc.GetRawTransactionAsync(itmVin.Txid);
-
-            foreach (var itmAddressVin in addressVin.Vout)
-            {
-                if (itmAddressVin.N == itmVin.Vout)
-                {
-
-                    foreach (var address in itmAddressVin.ScriptPubKey.Addresses)
+                    var newTransaction = new Transaction
                     {
-                        Console.WriteLine("------ Input - " + address);
-                        var newInputs = new Input
-                        {
-                            Txid = tx.Txid,
-                            Value = itmAddressVin.Value,
-                            Addresses = address,
-                            BlockHash = tx.Blockhash
-                        };
+                        Time = transaction.GetTime(),
+                        Height = block.Height,
+                        Confirmations = transaction.Confirmations,
+                        Txid = transaction.Txid,
+                        Blockhash = transaction.Blockhash
+                    };
 
-                        await _inputsRepository.SaveAsync(newInputs);
-                          
-                        }
-                }
-                }
+                    await _transactionRepository.SaveAsync(newTransaction);
 
+                    await SaveOutputsToDb(transaction);
+                    await SaveInputsDb(transaction);
+                }
+                catch (Exception ex)
+                {
+                   /*var webException = ex as WebException;
+
+
+                    if (webException != null)
+                    {
+                            using (var str = webException.Response.GetResponseStream())
+                            {
+                                using (var sr = new StreamReader(str))
+                                {
+                                    var response = await sr.ReadToEndAsync();
+
+                                    await _log.WriteWarning("JobsBlockTransfer", "SaveTransactionToDbWebException", itemTx, response);
+                                }
+                            }
+                        }*/
+
+                        //Console.WriteLine("Error - SaveTransactionToDb");
+                        await _log.WriteError("JobsBlockTransfer", "SaveTransactionToDb", itemTx, ex);
+                }
+            }
         }
-    }
+
+        private async Task SaveOutputsToDb(GetRawTransactionPrcModel tx)
+        {
+            foreach (var itmVout in tx.Vout.Where(itm => itm.ScriptPubKey.Addresses != null))
+            {
+
+                foreach (var itmAdress in itmVout.ScriptPubKey.Addresses)
+                {
+                    //Console.WriteLine("--- Output - " + itmAdress);
+                    var newOutputs = new Output
+                    {
+                        Time = tx.GetTime(),
+                        Txid = tx.Txid,
+                        Value = itmVout.Value,
+                        Addresses = itmAdress,
+                        BlockHash = tx.Blockhash
+                    };
+
+                    await _outputsRepository.SaveAsync(newOutputs);
+                }
+            }
+        }
+
+        private async Task SaveInputsDb(GetRawTransactionPrcModel tx)
+        {
+            foreach (var itmVin in tx.Vin.Where(itm => itm.Txid != null))
+            {
+                var addressVin = await _bitcoinRpc.GetRawTransactionAsync(itmVin.Txid);
+
+                foreach (var itmAddressVin in addressVin.Vout)
+                {
+                    if (itmAddressVin.N == itmVin.Vout)
+                    {
+
+                        foreach (var address in itmAddressVin.ScriptPubKey.Addresses)
+                        {
+                            //Console.WriteLine("------ Input - " + address);
+                            var newInputs = new Input
+                            {
+                                Txid = tx.Txid,
+                                Value = itmAddressVin.Value,
+                                Addresses = address,
+                                BlockHash = tx.Blockhash
+                            };
+
+                            await _inputsRepository.SaveAsync(newInputs);
+                        }
+                    }
+                }
+            }
+        }
 
         protected override async Task Execute()
         {

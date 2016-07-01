@@ -1,0 +1,32 @@
+﻿@model Lykke.BlockchainExplorer.UI.Models.IndexModel
+@{
+    ViewData["Title"] = "Bitcoin Chain Explorer";
+}
+
+<div class="page-content">
+    <div class="home-section home-first">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="home-search">
+                        <h1>
+                            Explore the Blockchain
+                        </h1>
+                        <form method="get" action="@Url.Action("Index", "Search")">
+                            <div class="input-group" role="search">
+                                <input type="text" class="form-control input-lg" name="id" placeholder="Search blocks, transactions, addresses or assets">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-search" type="submit"><span class="glyphicon glyphicon-search"></span> Search</button>
+                                </span>
+                            </div>
+                        </form>
+                        <p>
+                            <small>Last block: <a href="@Url.Action("Index", "Block", new { id= Model.LastBlock.Hash } )">@Model.LastBlock.Height</a></small> - 
+                            <small><a href="@Url.Action("AssetDirectory", "Asset")">Asset Directory</a></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

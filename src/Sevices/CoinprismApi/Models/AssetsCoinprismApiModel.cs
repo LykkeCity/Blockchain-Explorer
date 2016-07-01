@@ -36,9 +36,4 @@ namespace Sevices.CoinprismApi.Models
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
     }
-
-
-
-
-
 }

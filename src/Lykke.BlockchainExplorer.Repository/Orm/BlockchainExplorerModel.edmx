@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="AssetExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAddressAssets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAddressById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAssetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAssetOwners" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAssets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core" />
+        <Function Name="GetAssetsByTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="transactionId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetBlockById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetTransactionById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetTransactionItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="transactionId" Type="int" Mode="In" />
+          <Parameter Name="itemType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="hash" Type="nvarchar" Mode="In" />
+          <Parameter Name="coloredAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="uncoloredAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="balance" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="InsertAsset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="hash" Type="nvarchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="shortName" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="descriptionMime" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="nvarchar" Mode="In" />
+          <Parameter Name="contractUrl" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="metadataUrl" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="finalMetadataUrl" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="issuer" Type="nvarchar" Mode="In" />
+          <Parameter Name="verifiedIssuer" Type="bit" Mode="In" />
+          <Parameter Name="divisibility" Type="int" Mode="In" />
+          <Parameter Name="iconUrl" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="imageUrl" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="version" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertBlock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="hash" Type="nvarchar" Mode="In" />
+          <Parameter Name="height" Type="bigint" Mode="In" />
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="confirmations" Type="bigint" Mode="In" />
+          <Parameter Name="difficulty" Type="float" Mode="In" />
+          <Parameter Name="merkleRoot" Type="nvarchar" Mode="In" />
+          <Parameter Name="nonce" Type="bigint" Mode="In" />
+          <Parameter Name="totalTransactions" Type="int" Mode="In" />
+          <Parameter Name="isImported" Type="bit" Mode="In" />
+          <Parameter Name="previousBlockHash" Type="nvarchar" Mode="In" />
+          <Parameter Name="serializedData" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="InsertLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="logType" Type="nvarchar" Mode="In" />
+          <Parameter Name="component" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="process" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="context" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="data" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="time" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="InsertTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="hash" Type="nvarchar" Mode="In" />
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="confirmations" Type="bigint" Mode="In" />
+          <Parameter Name="isColor" Type="bit" Mode="In" />
+          <Parameter Name="isCoinBase" Type="bit" Mode="In" />
+          <Parameter Name="hex" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="fees" Type="bigint" Mode="In" />
+          <Parameter Name="blockHash" Type="nvarchar" Mode="In" />
+          <Parameter Name="isImported" Type="bit" Mode="In" />
+          <Parameter Name="serializedData" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="InsertTransactionItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="transactionHash" Type="nvarchar" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="index" Type="int" Mode="In" />
+          <Parameter Name="value" Type="bigint" Mode="In" />
+          <Parameter Name="assetHash" Type="nvarchar" Mode="In" />
+          <Parameter Name="quantity" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="IsBlockImported" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="IsTransactionImported" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SetBlockAsImported" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SetTransactionAsImported" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Core">
+          <Parameter Name="hash" Type="nvarchar" Mode="In" />
+          <Parameter Name="coloredAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="uncoloredAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="GetBlockById" ReturnType="Collection(Model.GetBlockById_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertAsset">
+            <Parameter Name="hash" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="shortName" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="descriptionMime" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+            <Parameter Name="contractUrl" Mode="In" Type="String" />
+            <Parameter Name="metadataUrl" Mode="In" Type="String" />
+            <Parameter Name="finalMetadataUrl" Mode="In" Type="String" />
+            <Parameter Name="issuer" Mode="In" Type="String" />
+            <Parameter Name="verifiedIssuer" Mode="In" Type="Boolean" />
+            <Parameter Name="divisibility" Mode="In" Type="Int32" />
+            <Parameter Name="iconUrl" Mode="In" Type="String" />
+            <Parameter Name="imageUrl" Mode="In" Type="String" />
+            <Parameter Name="version" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertBlock">
+            <Parameter Name="hash" Mode="In" Type="String" />
+            <Parameter Name="height" Mode="In" Type="Int64" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="confirmations" Mode="In" Type="Int64" />
+            <Parameter Name="difficulty" Mode="In" Type="Double" />
+            <Parameter Name="merkleRoot" Mode="In" Type="String" />
+            <Parameter Name="nonce" Mode="In" Type="Int64" />
+            <Parameter Name="totalTransactions" Mode="In" Type="Int32" />
+            <Parameter Name="isImported" Mode="In" Type="Boolean" />
+            <Parameter Name="previousBlockHash" Mode="In" Type="String" />
+            <Parameter Name="serializedData" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertTransaction">
+            <Parameter Name="hash" Mode="In" Type="String" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="confirmations" Mode="In" Type="Int64" />
+            <Parameter Name="isColor" Mode="In" Type="Boolean" />
+            <Parameter Name="isCoinBase" Mode="In" Type="Boolean" />
+            <Parameter Name="hex" Mode="In" Type="String" />
+            <Parameter Name="fees" Mode="In" Type="Int64" />
+            <Parameter Name="blockHash" Mode="In" Type="String" />
+            <Parameter Name="isImported" Mode="In" Type="Boolean" />
+            <Parameter Name="serializedData" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertTransactionItem">
+            <Parameter Name="transactionHash" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="index" Mode="In" Type="Int32" />
+            <Parameter Name="value" Mode="In" Type="Int64" />
+            <Parameter Name="assetHash" Mode="In" Type="String" />
+            <Parameter Name="quantity" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="IsBlockImported" ReturnType="Collection(Boolean)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetTransactionById" ReturnType="Collection(Model.GetTransactionById_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetTransactionItems" ReturnType="Collection(Model.GetTransactionItems_Result)">
+            <Parameter Name="transactionId" Mode="In" Type="Int32" />
+            <Parameter Name="itemType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="IsTransactionImported" ReturnType="Collection(Boolean)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAssetsByTransaction" ReturnType="Collection(Model.GetAssetsByTransaction_Result)">
+          <Parameter Name="transactionId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AssetExists" ReturnType="Collection(Boolean)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAssetById" ReturnType="Collection(Model.GetAssetById_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SetBlockAsImported">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SetTransactionAsImported">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertLog">
+            <Parameter Name="logType" Mode="In" Type="String" />
+            <Parameter Name="component" Mode="In" Type="String" />
+            <Parameter Name="process" Mode="In" Type="String" />
+            <Parameter Name="context" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="String" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetAssetOwners" ReturnType="Collection(Model.GetAssetOwners_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAssets" ReturnType="Collection(Model.GetAssets_Result)" />
+          <FunctionImport Name="GetAdressAssets" ReturnType="Collection(Model.GetAdressAssets_Result)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateAddress">
+            <Parameter Name="hash" Mode="In" Type="String" />
+            <Parameter Name="coloredAddress" Mode="In" Type="String" />
+            <Parameter Name="uncoloredAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAddressAssets" ReturnType="Collection(Model.GetAddressAssets_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAddressById" ReturnType="Collection(Model.GetAddressById_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertAddress">
+            <Parameter Name="hash" Mode="In" Type="String" />
+            <Parameter Name="coloredAddress" Mode="In" Type="String" />
+            <Parameter Name="uncoloredAddress" Mode="In" Type="String" />
+            <Parameter Name="balance" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetBlockById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="Height" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="false" Precision="23" />
+          <Property Type="Int64" Name="Confirmations" Nullable="false" />
+          <Property Type="Double" Name="Difficulty" Nullable="false" />
+          <Property Type="String" Name="MerkleRoot" Nullable="false" MaxLength="100" />
+          <Property Type="Int64" Name="Nonce" Nullable="false" />
+          <Property Type="Int32" Name="TotalTransactions" Nullable="false" />
+          <Property Type="Boolean" Name="IsImported" Nullable="false" />
+          <Property Type="String" Name="PreviousBlockHash" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="PreviousBlockId" Nullable="true" />
+          <Property Type="String" Name="SerializedData" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTransactionById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="Confirmations" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsColor" Nullable="false" />
+          <Property Type="Boolean" Name="IsCoinbase" Nullable="false" />
+          <Property Type="String" Name="Hex" Nullable="false" />
+          <Property Type="Int64" Name="Fees" Nullable="false" />
+          <Property Type="String" Name="BlockHash" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="BlockId" Nullable="false" />
+          <Property Type="String" Name="SerializedData" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTransactionItems_Result">
+          <Property Type="Int32" Name="Index" Nullable="false" />
+          <Property Type="Int64" Name="Value" Nullable="false" />
+          <Property Type="Int64" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="AssetId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetAssetsByTransaction_Result">
+          <Property Type="String" Name="AssetId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MetadataUrl" Nullable="false" />
+          <Property Type="Int32" Name="Index" Nullable="false" />
+          <Property Type="Int64" Name="Value" Nullable="false" />
+          <Property Type="Int64" Name="Quantity" Nullable="true" />
+          <Property Type="Int32" Name="TransactionItemType" Nullable="false" />
+          <Property Type="Int32" Name="TransactionId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAssetById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="NameShort" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="DescriptionMime" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContractUrl" Nullable="false" />
+          <Property Type="String" Name="MetadataUrl" Nullable="false" />
+          <Property Type="String" Name="FinalMetadataUrl" Nullable="false" />
+          <Property Type="String" Name="Issuer" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="VerifiedIssuer" Nullable="true" />
+          <Property Type="Int32" Name="Divisibility" Nullable="true" />
+          <Property Type="String" Name="IconUrl" Nullable="true" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="String" Name="Version" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="GetAssetOwners_Result">
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="100" />
+          <Property Type="Int64" Name="Quantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAssets_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="NameShort" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="DescriptionMime" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContractUrl" Nullable="false" />
+          <Property Type="String" Name="MetadataUrl" Nullable="false" />
+          <Property Type="String" Name="FinalMetadataUrl" Nullable="false" />
+          <Property Type="String" Name="Issuer" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="VerifiedIssuer" Nullable="true" />
+          <Property Type="Int32" Name="Divisibility" Nullable="true" />
+          <Property Type="String" Name="IconUrl" Nullable="true" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="String" Name="Version" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="GetAdressAssets_Result">
+          <Property Type="String" Name="Asset" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="AssetQuantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAddressAssets_Result">
+          <Property Type="String" Name="Asset" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="AssetQuantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAddressById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ColoredAddress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UncoloredAddress" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Balance" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <FunctionImportMapping FunctionImportName="GetBlockById" FunctionName="Model.Store.GetBlockById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetBlockById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Confirmations" ColumnName="Confirmations" />
+                <ScalarProperty Name="Difficulty" ColumnName="Difficulty" />
+                <ScalarProperty Name="MerkleRoot" ColumnName="MerkleRoot" />
+                <ScalarProperty Name="Nonce" ColumnName="Nonce" />
+                <ScalarProperty Name="TotalTransactions" ColumnName="TotalTransactions" />
+                <ScalarProperty Name="IsImported" ColumnName="IsImported" />
+                <ScalarProperty Name="PreviousBlockHash" ColumnName="PreviousBlockHash" />
+                <ScalarProperty Name="PreviousBlockId" ColumnName="PreviousBlockId" />
+                <ScalarProperty Name="SerializedData" ColumnName="SerializedData" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertAsset" FunctionName="Model.Store.InsertAsset" />
+          <FunctionImportMapping FunctionImportName="InsertBlock" FunctionName="Model.Store.InsertBlock" />
+          <FunctionImportMapping FunctionImportName="InsertTransaction" FunctionName="Model.Store.InsertTransaction" />
+          <FunctionImportMapping FunctionImportName="InsertTransactionItem" FunctionName="Model.Store.InsertTransactionItem" />
+          <FunctionImportMapping FunctionImportName="IsBlockImported" FunctionName="Model.Store.IsBlockImported" />
+          <FunctionImportMapping FunctionImportName="GetTransactionById" FunctionName="Model.Store.GetTransactionById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetTransactionById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Confirmations" ColumnName="Confirmations" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="IsColor" ColumnName="IsColor" />
+                <ScalarProperty Name="IsCoinbase" ColumnName="IsCoinbase" />
+                <ScalarProperty Name="Hex" ColumnName="Hex" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="BlockHash" ColumnName="BlockHash" />
+                <ScalarProperty Name="BlockId" ColumnName="BlockId" />
+                <ScalarProperty Name="SerializedData" ColumnName="SerializedData" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTransactionItems" FunctionName="Model.Store.GetTransactionItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetTransactionItems_Result">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="IsTransactionImported" FunctionName="Model.Store.IsTransactionImported" />
+          <FunctionImportMapping FunctionImportName="GetAssetsByTransaction" FunctionName="Model.Store.GetAssetsByTransaction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAssetsByTransaction_Result">
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="MetadataUrl" ColumnName="MetadataUrl" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TransactionItemType" ColumnName="TransactionItemType" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AssetExists" FunctionName="Model.Store.AssetExists" />
+          <FunctionImportMapping FunctionImportName="GetAssetById" FunctionName="Model.Store.GetAssetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAssetById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameShort" ColumnName="NameShort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DescriptionMime" ColumnName="DescriptionMime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ContractUrl" ColumnName="ContractUrl" />
+                <ScalarProperty Name="MetadataUrl" ColumnName="MetadataUrl" />
+                <ScalarProperty Name="FinalMetadataUrl" ColumnName="FinalMetadataUrl" />
+                <ScalarProperty Name="Issuer" ColumnName="Issuer" />
+                <ScalarProperty Name="VerifiedIssuer" ColumnName="VerifiedIssuer" />
+                <ScalarProperty Name="Divisibility" ColumnName="Divisibility" />
+                <ScalarProperty Name="IconUrl" ColumnName="IconUrl" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SetBlockAsImported" FunctionName="Model.Store.SetBlockAsImported" />
+          <FunctionImportMapping FunctionImportName="SetTransactionAsImported" FunctionName="Model.Store.SetTransactionAsImported" />
+          <FunctionImportMapping FunctionImportName="InsertLog" FunctionName="Model.Store.InsertLog" />
+          <FunctionImportMapping FunctionImportName="GetAssetOwners" FunctionName="Model.Store.GetAssetOwners">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAssetOwners_Result">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAssets" FunctionName="Model.Store.GetAssets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAssets_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameShort" ColumnName="NameShort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DescriptionMime" ColumnName="DescriptionMime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ContractUrl" ColumnName="ContractUrl" />
+                <ScalarProperty Name="MetadataUrl" ColumnName="MetadataUrl" />
+                <ScalarProperty Name="FinalMetadataUrl" ColumnName="FinalMetadataUrl" />
+                <ScalarProperty Name="Issuer" ColumnName="Issuer" />
+                <ScalarProperty Name="VerifiedIssuer" ColumnName="VerifiedIssuer" />
+                <ScalarProperty Name="Divisibility" ColumnName="Divisibility" />
+                <ScalarProperty Name="IconUrl" ColumnName="IconUrl" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateAddress" FunctionName="Model.Store.UpdateAddress" />
+          <FunctionImportMapping FunctionImportName="GetAddressAssets" FunctionName="Model.Store.GetAddressAssets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAddressAssets_Result">
+                <ScalarProperty Name="Asset" ColumnName="Asset" />
+                <ScalarProperty Name="AssetQuantity" ColumnName="AssetQuantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAddressById" FunctionName="Model.Store.GetAddressById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAddressById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="ColoredAddress" ColumnName="ColoredAddress" />
+                <ScalarProperty Name="UncoloredAddress" ColumnName="UncoloredAddress" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertAddress" FunctionName="Model.Store.InsertAddress" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
